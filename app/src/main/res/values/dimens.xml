@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="labelTextSize">18sp</dimen>
+
+    <dimen name="cardElevation">4dp</dimen>
+
+    <!--Pumpings List-->
+    <dimen name="pumpingItemHorizontalMargin">2dp</dimen>
+    <dimen name="pumpingItemVerticalMargin">2dp</dimen>
+    <dimen name="pumpingItemHorizontalPadding">14dp</dimen>
+    <dimen name="pumpingItemVerticalPadding">12dp</dimen>
+    <dimen name="pumpingItemTextSize">18sp</dimen>
+
+
+</resources>
