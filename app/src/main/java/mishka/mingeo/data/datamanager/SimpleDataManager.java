@@ -6,20 +6,42 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import mishka.mingeo.data.Pumping;
+import mishka.mingeo.data.datamanager.asyncdboperation.AsyncDbOperationManager;
+import mishka.mingeo.data.model.Borehole;
+import mishka.mingeo.data.model.BoreholeDepth;
+import mishka.mingeo.data.model.Pumping;
 import mishka.mingeo.data.datamanager.db.DatabaseHelper;
 
 public class SimpleDataManager implements DataManager {
     private DatabaseHelper dbHelper;
+    private AsyncDbOperationManager asyncDbOperationManager;
 
     @Inject
-    public SimpleDataManager(DatabaseHelper dbHelper) {
+    public SimpleDataManager(DatabaseHelper dbHelper, AsyncDbOperationManager asyncDbOperationManager) {
         this.dbHelper = dbHelper;
+        this.asyncDbOperationManager = asyncDbOperationManager;
+        System.out.println("new SimpleDataManager created");
+    }
+
+
+    @Override
+    public void createPumping(OnItemAddedListener listener) {
+        asyncDbOperationManager.add(new Pumping(), listener);
     }
 
     @Override
-    public void addPumping(Pumping pumping, OnPumpingAddedListener listener) {
-        new AddPumpingAsyncTask(dbHelper, pumping, listener).execute();
+    public void createBorehole(Pumping pumping, OnItemAddedListener listener) {
+        asyncDbOperationManager.add(new Borehole(pumping), listener);
+    }
+
+    @Override
+    public void createBoreholeDepth(Borehole borehole, OnItemAddedListener listener) {
+        asyncDbOperationManager.add(new BoreholeDepth(borehole), listener);
+    }
+
+    @Override
+    public void fetchBoreholesForPumping(Pumping pumping, OnItemsFetchedListener listener) {
+        asyncDbOperationManager.fetchBoreholeForPumping(listener, pumping);
     }
 
     @Override
@@ -27,29 +49,9 @@ public class SimpleDataManager implements DataManager {
         new FetchPumpingsAsyncTask(dbHelper, listener).execute();
     }
 
-    private static class AddPumpingAsyncTask extends AsyncTask<Void, Void, Void> {
-
-        private DatabaseHelper databaseHelper;
-        private Pumping pumping;
-        private OnPumpingAddedListener listener;
-
-        public AddPumpingAsyncTask(DatabaseHelper databaseHelper, Pumping pumping, OnPumpingAddedListener listener) {
-            this.databaseHelper = databaseHelper;
-            this.pumping = pumping;
-            this.listener = listener;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            databaseHelper.addPumping(pumping);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            listener.pumpingAdded();
-        }
+    @Override
+    public void updateBoreholeDepth(BoreholeDepth boreholeDepth) {
+        asyncDbOperationManager.updateBoreholeDepth(boreholeDepth);
     }
 
     private static class FetchPumpingsAsyncTask extends AsyncTask<Void, Void, List<Pumping>> {

@@ -4,12 +4,17 @@
 
     <dimen name="cardElevation">4dp</dimen>
 
-    <!--Pumpings List-->
+    <!--Pumpings list-->
     <dimen name="pumpingItemHorizontalMargin">2dp</dimen>
     <dimen name="pumpingItemVerticalMargin">2dp</dimen>
     <dimen name="pumpingItemHorizontalPadding">14dp</dimen>
     <dimen name="pumpingItemVerticalPadding">12dp</dimen>
     <dimen name="pumpingItemTextSize">18sp</dimen>
 
+    <!--Borehole fragment-->
+    <dimen name="labelItemHorizontalMargin">2dp</dimen>
+    <dimen name="labelItemVerticalMargin">2dp</dimen>
+    <dimen name="labelItemHorizontalPadding">14dp</dimen>
+    <dimen name="labelItemVerticalPadding">12dp</dimen>
 
 </resources>

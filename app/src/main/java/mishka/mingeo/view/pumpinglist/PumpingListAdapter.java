@@ -11,10 +11,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import mishka.mingeo.R;
-import mishka.mingeo.data.Pumping;
+import mishka.mingeo.data.model.Pumping;
 
 public class PumpingListAdapter extends RecyclerView.Adapter<PumpingListAdapter.PumpingItemViewHolder> {
 
@@ -42,7 +40,6 @@ public class PumpingListAdapter extends RecyclerView.Adapter<PumpingListAdapter.
     }
 
     public void updatePumpings(List<Pumping> pumpings) {
-        System.out.println("update pumpings: " + pumpings.size());
         this.pumpings = pumpings;
         notifyDataSetChanged();
     }

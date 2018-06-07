@@ -8,7 +8,8 @@ import dagger.Provides;
 import mishka.mingeo.view.pumping.PumpingActivity;
 import mishka.mingeo.view.pumping.PumpingMvpPresenter;
 import mishka.mingeo.view.pumping.PumpingPresenter;
-import mishka.mingeo.view.pumping.SummaryFragment;
+import mishka.mingeo.view.pumping.borehole.BoreholeMvpPresenter;
+import mishka.mingeo.view.pumping.borehole.BoreholePresenter;
 import mishka.mingeo.view.pumpinglist.PumpingListMvpPresenter;
 import mishka.mingeo.view.pumpinglist.PumpingListPresenter;
 
@@ -40,4 +41,8 @@ public class ActivityModule {
         return presenter;
     }
 
+    @Provides
+    BoreholeMvpPresenter provideBoreholeMvpPresenter(BoreholePresenter presenter){
+        return presenter;
+    }
 }

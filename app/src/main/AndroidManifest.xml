@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.pumping.PumpingActivity" />
-        <activity android:name=".view.BaseActivity"></activity>
+
     </application>
 
 </manifest>

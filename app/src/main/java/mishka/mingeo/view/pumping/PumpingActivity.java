@@ -1,9 +1,10 @@
 package mishka.mingeo.view.pumping;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.ViewParent;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -11,20 +12,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mishka.mingeo.R;
-import mishka.mingeo.di.component.ActivityComponent;
-import mishka.mingeo.di.component.DaggerActivityComponent;
-import mishka.mingeo.di.module.ActivityModule;
+import mishka.mingeo.data.model.Borehole;
+import mishka.mingeo.data.model.Pumping;
 import mishka.mingeo.view.BaseActivity;
-import mishka.mingeo.view.pumping.borehole.BoreholeAdapter;
 
-public class PumpingActivity extends BaseActivity implements PumpingMvpView{
+public class PumpingActivity extends BaseActivity implements PumpingMvpView {
 
     @BindView(R.id.borehole_pager)
     ViewPager boreholePager;
 
 
     @Inject
-    BoreholeAdapter adapter;
+    TabAdapter adapter;
 
     @Inject
     PumpingMvpPresenter presenter;
@@ -34,22 +33,28 @@ public class PumpingActivity extends BaseActivity implements PumpingMvpView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pumping);
 
-        DaggerActivityComponent.Builder activityComponentBuilder = DaggerActivityComponent.builder();
-        activityComponentBuilder.activityModule(new ActivityModule(this));
-        activityComponentBuilder.applicationComponent(getApplicationComponent());
+        Intent intent = getIntent();
 
-        ActivityComponent activityComponent = activityComponentBuilder.build();
 
-        activityComponent.inject(this);
+        getActivityComponent().inject(this);
+
 
         ButterKnife.bind(this);
-
         boreholePager.setAdapter(adapter);
+
+        Pumping pumping = (Pumping) intent.getSerializableExtra("pumping");
+        presenter.setPumping(pumping);
+        presenter.setMvpView(this);
+
     }
 
     @OnClick(R.id.btn_add_pumping)
-    void onAddBoreholeClick(){
+    void onAddBoreholeClick() {
         presenter.onAddBoreholeClick();
     }
 
+    @Override
+    public void updateBoreholes(List<Borehole> boreholes) {
+        adapter.update(boreholes);
+    }
 }

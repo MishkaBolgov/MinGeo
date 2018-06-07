@@ -2,20 +2,33 @@ package mishka.mingeo.data.datamanager;
 
 import java.util.List;
 
-import mishka.mingeo.data.Pumping;
-import mishka.mingeo.data.datamanager.db.DatabaseHelper;
+import mishka.mingeo.data.model.Borehole;
+import mishka.mingeo.data.model.BoreholeDepth;
+import mishka.mingeo.data.model.Pumping;
 
 public interface DataManager{
 
-    void addPumping(Pumping pumping, OnPumpingAddedListener listener);
+    void createPumping(OnItemAddedListener listener);
+    void createBorehole(Pumping pumping, OnItemAddedListener listener);
+    void createBoreholeDepth(Borehole borehole, OnItemAddedListener listener);
+
+    void fetchBoreholesForPumping(Pumping pumping, OnItemsFetchedListener listener);
+
 
     void getAllPumpings(OnPumpingFetchedListener listener);
 
-    interface OnPumpingAddedListener{
-        void pumpingAdded();
-    }
+    void updateBoreholeDepth(BoreholeDepth boreholeDepth);
 
     interface OnPumpingFetchedListener{
          void onAllPumpingsFetched(List<Pumping> pumpings);
     }
+
+    interface OnItemsFetchedListener<T>{
+         void onBoreholesFetched(List<T> boreholes);
+    }
+
+    interface OnItemAddedListener<T>{
+        void onItemCreated(T addedObject);
+    }
+
 }

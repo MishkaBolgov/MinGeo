@@ -24,7 +24,7 @@ public class MinGeoApplication extends Application {
         applicationComponent = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
         applicationComponent.inject(this);
 
-//        deleteDatabase("database");
+        deleteDatabase("database");
     }
 
     public ApplicationComponent getApplicationComponent() {

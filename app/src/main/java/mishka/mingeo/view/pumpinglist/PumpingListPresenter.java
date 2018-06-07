@@ -4,18 +4,18 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import mishka.mingeo.data.Pumping;
+import mishka.mingeo.data.model.Pumping;
 import mishka.mingeo.data.datamanager.DataManager;
 import mishka.mingeo.view.MvpView;
 
-public class PumpingListPresenter implements PumpingListMvpPresenter, DataManager.OnPumpingAddedListener, DataManager.OnPumpingFetchedListener {
+public class PumpingListPresenter implements PumpingListMvpPresenter, DataManager.OnPumpingFetchedListener {
 
     private DataManager dataManager;
 
     private PumpingListMvpView view;
 
     @Inject
-    public PumpingListPresenter(DataManager dataManager) {
+    public PumpingListPresenter(final DataManager dataManager) {
         this.dataManager = dataManager;
     }
 
@@ -35,7 +35,12 @@ public class PumpingListPresenter implements PumpingListMvpPresenter, DataManage
     }
 
     @Override
-    public void pumpingAdded() {
+    public void onAddPumpingClick() {
+        dataManager.createPumping(new DataManager.OnItemAddedListener<Pumping>() {
+            @Override
+            public void onItemCreated(Pumping pumping) {
+                view.onPumpingSelected(pumping);
+            }
+        });
     }
-
 }

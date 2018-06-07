@@ -7,4 +7,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="LabelStyle">
+        <item name="android:textSize">@dimen/labelTextSize</item>
+        <item name="android:textColor">@color/textColorDark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingBottom">@dimen/labelItemVerticalPadding</item>
+        <item name="android:paddingTop">@dimen/labelItemVerticalPadding</item>
+    </style>
+
+
+
 </resources>

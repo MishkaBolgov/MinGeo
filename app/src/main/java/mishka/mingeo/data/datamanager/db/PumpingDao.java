@@ -6,14 +6,17 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
-import mishka.mingeo.data.Pumping;
+import mishka.mingeo.data.model.Pumping;
 
 @Dao
 public interface PumpingDao {
 
     @Insert
-    void addPumping(Pumping pumping);
+    long addPumping(Pumping pumping);
 
     @Query("SELECT * FROM pumping")
     List<Pumping> getAll();
+
+    @Query("SELECT * FROM pumping WHERE id=:id")
+    Pumping getPumpingById(int id);
 }
