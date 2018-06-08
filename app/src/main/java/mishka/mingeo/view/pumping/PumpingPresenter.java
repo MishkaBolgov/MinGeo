@@ -42,7 +42,7 @@ public class PumpingPresenter implements PumpingMvpPresenter {
         this.view = (PumpingMvpView) view;
         dataManager.fetchBoreholesForPumping(pumping, new DataManager.OnItemsFetchedListener<Borehole>() {
             @Override
-            public void onBoreholesFetched(List<Borehole> boreholes) {
+            public void onItemsFetched(List<Borehole> boreholes) {
                 PumpingPresenter.this.view.updateBoreholes(boreholes);
             }
         });

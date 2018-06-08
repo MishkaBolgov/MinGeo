@@ -20,7 +20,6 @@ public class SimpleDataManager implements DataManager {
     public SimpleDataManager(DatabaseHelper dbHelper, AsyncDbOperationManager asyncDbOperationManager) {
         this.dbHelper = dbHelper;
         this.asyncDbOperationManager = asyncDbOperationManager;
-        System.out.println("new SimpleDataManager created");
     }
 
 
@@ -41,17 +40,23 @@ public class SimpleDataManager implements DataManager {
 
     @Override
     public void fetchBoreholesForPumping(Pumping pumping, OnItemsFetchedListener listener) {
-        asyncDbOperationManager.fetchBoreholeForPumping(listener, pumping);
+        asyncDbOperationManager.fetchBoreholesForPumping(pumping, listener);
     }
 
     @Override
-    public void getAllPumpings(OnPumpingFetchedListener listener) {
+    public void fetchBoreholeDepthsForBorehole(Borehole borehole, OnItemsFetchedListener listener) {
+        asyncDbOperationManager.fetchDepthsForBorehole(borehole, listener);
+    }
+
+    @Override
+    public void fetchAllPumpings(OnPumpingFetchedListener listener) {
         new FetchPumpingsAsyncTask(dbHelper, listener).execute();
     }
 
+
     @Override
-    public void updateBoreholeDepth(BoreholeDepth boreholeDepth) {
-        asyncDbOperationManager.updateBoreholeDepth(boreholeDepth);
+    public void updateBoreholeDepth(BoreholeDepth boreholeDepth, OnDbOperationFinishedListener listener) {
+        asyncDbOperationManager.updateBoreholeDepth(boreholeDepth, listener);
     }
 
     private static class FetchPumpingsAsyncTask extends AsyncTask<Void, Void, List<Pumping>> {

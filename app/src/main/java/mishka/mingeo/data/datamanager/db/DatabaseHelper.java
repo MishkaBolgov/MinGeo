@@ -22,4 +22,6 @@ public interface DatabaseHelper {
     int addBoreholeDepth(BoreholeDepth objectToAdd);
 
     void updateBoreholeDepth(BoreholeDepth updatedBoreholeDepth);
+
+    List<BoreholeDepth> getBoreholeDepthsForBorehole(Borehole ownerEntity);
 }

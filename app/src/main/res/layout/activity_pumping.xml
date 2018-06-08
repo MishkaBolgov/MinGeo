@@ -21,43 +21,13 @@
             android:id="@+id/borehole_tabs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:tabMode="scrollable">
-
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Something" />
-
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Something else" />
-
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Something other option" />
-
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Something" />
-
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Something else" />
-
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Something other option" />
+            app:tabMode="scrollable"
+            app:tabTextColor="@color/textColorDark"
+            app:tabSelectedTextColor="@color/textColorDark">
 
         </android.support.design.widget.TabLayout>
 
 
     </android.support.v4.view.ViewPager>
-
-    <include layout="@layout/floating_button" />
 
 </RelativeLayout>

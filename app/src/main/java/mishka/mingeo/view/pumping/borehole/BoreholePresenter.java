@@ -1,5 +1,9 @@
 package mishka.mingeo.view.pumping.borehole;
 
+import com.google.gson.Gson;
+
+import java.util.List;
+
 import javax.inject.Inject;
 
 import mishka.mingeo.data.model.Borehole;
@@ -29,7 +33,7 @@ public class BoreholePresenter implements BoreholeMvpPresenter {
 
     @Override
     public void addBoreholeDepth() {
-        dataManager.createBoreholeDepth(borehole, new DataManager.OnItemAddedListener<BoreholeDepth>(){
+        dataManager.createBoreholeDepth(borehole, new DataManager.OnItemAddedListener<BoreholeDepth>() {
             @Override
             public void onItemCreated(BoreholeDepth boreholeDepth) {
                 view.addBoreholeDepth(boreholeDepth);
@@ -38,8 +42,18 @@ public class BoreholePresenter implements BoreholeMvpPresenter {
     }
 
     @Override
-    public void onBoreholeDepthUpdate(BoreholeDepth boreholeDepth) {
-        dataManager.updateBoreholeDepth(boreholeDepth);
+    public void onBoreholeDepthUpdate(final BoreholeDepth boreholeDepth) {
+        dataManager.updateBoreholeDepth(boreholeDepth, new DataManager.OnDbOperationFinishedListener() {
+            @Override
+            public void onBoreholeDepthUpdated() {
+                dataManager.fetchBoreholeDepthsForBorehole(borehole, new DataManager.OnItemsFetchedListener<BoreholeDepth>() {
+                    @Override
+                    public void onItemsFetched(List<BoreholeDepth> depths) {
+                        view.updateChart(depths);
+                    }
+                });
+            }
+        });
     }
 
 }

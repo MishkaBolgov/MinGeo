@@ -36,12 +36,12 @@ public class SimpleDatabaseHelper implements DatabaseHelper {
 
     @Override
     public void updateBoreholeDepth(BoreholeDepth updatedBoreholeDepth) {
-        System.out.println("here");
-        for (BoreholeDepth boreholeDepth : database.boreholeDepthDao().getAll())
-            System.out.println("{b} borehole depth #" + boreholeDepth.getId() + ": " + new Gson().toJson(boreholeDepth));
         database.boreholeDepthDao().updateBoreholeDepth(updatedBoreholeDepth);
-        for (BoreholeDepth boreholeDepth : database.boreholeDepthDao().getAll())
-            System.out.println("{a}borehole depth #" + boreholeDepth.getId() + ": " + new Gson().toJson(boreholeDepth));
+    }
+
+    @Override
+    public List<BoreholeDepth> getBoreholeDepthsForBorehole(Borehole borehole) {
+        return database.boreholeDepthDao().getDepthsForBorehole(borehole.getId());
     }
 
 

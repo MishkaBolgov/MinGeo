@@ -60,6 +60,9 @@ public class DepthsAdapter extends RecyclerView.Adapter<DepthsAdapter.DepthViewH
         @BindView(R.id.depth)
         EditText depth;
 
+        @BindView(R.id.save_depth)
+        Button saveDepth;
+
         BoreholeDepth boreholeDepth;
 
         BoreholeFragment fragment;
@@ -79,6 +82,8 @@ public class DepthsAdapter extends RecyclerView.Adapter<DepthsAdapter.DepthViewH
         void onSaveDepthClick() {
             boreholeDepth.setDepth(Integer.parseInt(depth.getText().toString()));
             fragment.onBoreholeDepthUpdate(boreholeDepth);
+            saveDepth.setVisibility(View.GONE);
+            saveDepth.setEnabled(false);
         }
     }
 }

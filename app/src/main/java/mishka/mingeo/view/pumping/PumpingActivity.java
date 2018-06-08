@@ -48,10 +48,6 @@ public class PumpingActivity extends BaseActivity implements PumpingMvpView {
 
     }
 
-    @OnClick(R.id.btn_add_pumping)
-    void onAddBoreholeClick() {
-        presenter.onAddBoreholeClick();
-    }
 
     @Override
     public void updateBoreholes(List<Borehole> boreholes) {

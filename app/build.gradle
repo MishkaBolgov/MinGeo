@@ -51,6 +51,9 @@ dependencies {
 //    Gson
     implementation 'com.google.code.gson:gson:2.8.4'
 
+//   Graph Plot
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'

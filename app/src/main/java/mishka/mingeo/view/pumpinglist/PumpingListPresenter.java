@@ -26,7 +26,7 @@ public class PumpingListPresenter implements PumpingListMvpPresenter, DataManage
     }
 
     private void updateView() {
-        dataManager.getAllPumpings(this);
+        dataManager.fetchAllPumpings(this);
     }
 
     @Override

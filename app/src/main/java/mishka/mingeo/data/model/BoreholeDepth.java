@@ -3,8 +3,13 @@ package mishka.mingeo.data.model;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverter;
+import android.arch.persistence.room.TypeConverters;
+
+import org.joda.time.Instant;
 
 @Entity
+@TypeConverters(DateConverter.class)
 public class BoreholeDepth implements DatabaseEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -13,12 +18,16 @@ public class BoreholeDepth implements DatabaseEntity {
 
     private int boreholeId;
 
+
+    private Instant date;
+
     public BoreholeDepth() {
     }
 
     public BoreholeDepth(Borehole borehole) {
         this.depth = 0;
         this.boreholeId = borehole.getId();
+        date = Instant.now();
     }
 
     public int getId() {
@@ -35,6 +44,7 @@ public class BoreholeDepth implements DatabaseEntity {
 
     public void setDepth(int depth) {
         this.depth = depth;
+        date = Instant.now();
     }
 
     public int getBoreholeId() {
@@ -43,5 +53,17 @@ public class BoreholeDepth implements DatabaseEntity {
 
     public void setBoreholeId(int boreholeId) {
         this.boreholeId = boreholeId;
+    }
+
+    public Instant getDate() {
+        return date;
+    }
+
+    public void setDate(Instant date) {
+        this.date = date;
+    }
+
+    public float getMinutes() {
+        return date.toDateTime().getSecondOfDay();
     }
 }

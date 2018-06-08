@@ -12,23 +12,27 @@ public interface DataManager{
     void createBorehole(Pumping pumping, OnItemAddedListener listener);
     void createBoreholeDepth(Borehole borehole, OnItemAddedListener listener);
 
+    void updateBoreholeDepth(BoreholeDepth boreholeDepth, OnDbOperationFinishedListener listener);
+
     void fetchBoreholesForPumping(Pumping pumping, OnItemsFetchedListener listener);
+    void fetchAllPumpings(OnPumpingFetchedListener listener);
+    void fetchBoreholeDepthsForBorehole(Borehole borehole, OnItemsFetchedListener listener);
 
-
-    void getAllPumpings(OnPumpingFetchedListener listener);
-
-    void updateBoreholeDepth(BoreholeDepth boreholeDepth);
 
     interface OnPumpingFetchedListener{
          void onAllPumpingsFetched(List<Pumping> pumpings);
     }
 
     interface OnItemsFetchedListener<T>{
-         void onBoreholesFetched(List<T> boreholes);
+         void onItemsFetched(List<T> items);
     }
 
     interface OnItemAddedListener<T>{
         void onItemCreated(T addedObject);
+    }
+
+    interface OnDbOperationFinishedListener {
+        void onBoreholeDepthUpdated();
     }
 
 }
