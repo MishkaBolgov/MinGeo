@@ -13,22 +13,43 @@
             android:id="@+id/chart_fragment"
             android:layout_width="match_parent"
             android:layout_height="160dp"
+            android:layout_marginTop="20dp"
             android:name="mishka.mingeo.view.pumping.borehole.depthchart.DepthChartFragment"/>
 
         <TextView
             android:id="@+id/label"
-            style="@style/LabelStyle"
+            style="@style/PrimaryLabelStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_below="@id/chart_fragment"
             android:text="Замеры" />
 
+        <LinearLayout
+            android:id="@+id/column_header_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/SecondaryLabelStyle"
+                android:text="Глубина"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/SecondaryLabelStyle"
+                android:text="Дата измерения"/>
+        </LinearLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/depths"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/label"></android.support.v7.widget.RecyclerView>
+            android:layout_below="@id/column_header_holder"></android.support.v7.widget.RecyclerView>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -37,9 +58,10 @@
 
             <Button
                 android:id="@+id/add_depth"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_gravity="center"
+                android:layout_margin="24dp"
                 android:background="@drawable/round_add_black_24" />
         </FrameLayout>
     </RelativeLayout>

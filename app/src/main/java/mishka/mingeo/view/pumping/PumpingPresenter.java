@@ -1,5 +1,6 @@
 package mishka.mingeo.view.pumping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,34 +23,41 @@ public class PumpingPresenter implements PumpingMvpPresenter {
 
     public void setPumping(Pumping pumping) {
         this.pumping = pumping;
+    }
 
-        dataManager.createBorehole(pumping, new DataManager.OnItemAddedListener<Borehole>() {
-            @Override
-            public void onItemCreated(Borehole addedObject) {
-
-            }
-        });
-        dataManager.createBorehole(pumping, new DataManager.OnItemAddedListener<Borehole>() {
-            @Override
-            public void onItemCreated(Borehole addedObject) {
-
-            }
-        });
+    @Override
+    public void onAddBoreholeClick() {
+        createBorehole();
     }
 
     @Override
     public void setMvpView(MvpView view) {
         this.view = (PumpingMvpView) view;
+        updateView();
+    }
+
+    private void updateView() {
         dataManager.fetchBoreholesForPumping(pumping, new DataManager.OnItemsFetchedListener<Borehole>() {
             @Override
             public void onItemsFetched(List<Borehole> boreholes) {
                 PumpingPresenter.this.view.updateBoreholes(boreholes);
             }
         });
-
     }
 
-    @Override
-    public void onAddBoreholeClick() {
+    private void createBorehole() {
+        dataManager.createBorehole(pumping, new DataManager.OnItemAddedListener<Borehole>() {
+            @Override
+            public void onItemCreated(Borehole borehole) {
+                dataManager.fetchBoreholesForPumping(pumping, new DataManager.OnItemsFetchedListener<Borehole>() {
+                    @Override
+                    public void onItemsFetched(List<Borehole> items) {
+                        updateView();
+                    }
+                });
+            }
+        });
     }
+
+
 }

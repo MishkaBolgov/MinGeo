@@ -38,8 +38,8 @@ public class PumpingListPresenter implements PumpingListMvpPresenter, DataManage
     public void onAddPumpingClick() {
         dataManager.createPumping(new DataManager.OnItemAddedListener<Pumping>() {
             @Override
-            public void onItemCreated(Pumping pumping) {
-                view.onPumpingSelected(pumping);
+            public void onItemCreated(Pumping addedItem) {
+                view.onPumpingSelected(addedItem);
             }
         });
     }

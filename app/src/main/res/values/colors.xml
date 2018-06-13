@@ -7,5 +7,9 @@
     <color name="colorSecondary">#7265a3</color>
     <color name="colorWhite">#ffffff</color>
     <color name="textColorDark">#bb000000</color>
+    <color name="textColorDarkSecondary">#78000000</color>
     <color name="textColorLight">#bbffffff</color>
+
+    <color name="evenListBackground">#ffffff</color>
+    <color name="oddListBackground">#1e7265a3</color>
 </resources>

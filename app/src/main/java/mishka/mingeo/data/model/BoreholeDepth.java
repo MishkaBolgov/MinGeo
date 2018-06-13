@@ -24,8 +24,8 @@ public class BoreholeDepth implements DatabaseEntity {
     public BoreholeDepth() {
     }
 
-    public BoreholeDepth(Borehole borehole) {
-        this.depth = 0;
+    public BoreholeDepth(Borehole borehole, int depth) {
+        this.depth = depth;
         this.boreholeId = borehole.getId();
         date = Instant.now();
     }
@@ -44,7 +44,6 @@ public class BoreholeDepth implements DatabaseEntity {
 
     public void setDepth(int depth) {
         this.depth = depth;
-        date = Instant.now();
     }
 
     public int getBoreholeId() {
@@ -65,5 +64,9 @@ public class BoreholeDepth implements DatabaseEntity {
 
     public float getMinutes() {
         return date.toDateTime().getSecondOfDay();
+    }
+
+    public String getMonthDayDate() {
+        return date.toDateTime().toString("dd/mm");
     }
 }

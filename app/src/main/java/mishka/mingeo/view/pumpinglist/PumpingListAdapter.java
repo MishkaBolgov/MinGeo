@@ -11,12 +11,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import mishka.mingeo.R;
 import mishka.mingeo.data.model.Pumping;
 
 public class PumpingListAdapter extends RecyclerView.Adapter<PumpingListAdapter.PumpingItemViewHolder> {
 
     private List<Pumping> pumpings;
+    private PumpingListActivity pumpingListActvity;
 
     @Inject
     public PumpingListAdapter() {
@@ -26,12 +28,12 @@ public class PumpingListAdapter extends RecyclerView.Adapter<PumpingListAdapter.
     @Override
     public PumpingItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pumping_item, parent, false);
-        return new PumpingItemViewHolder(view);
+        return new PumpingItemViewHolder(view, pumpingListActvity);
     }
 
     @Override
     public void onBindViewHolder(PumpingItemViewHolder holder, int position) {
-        holder.setPumpingName("Выкачка #" + pumpings.get(position).getId());
+        holder.setPumping(pumpings.get(position));
     }
 
     @Override
@@ -44,17 +46,33 @@ public class PumpingListAdapter extends RecyclerView.Adapter<PumpingListAdapter.
         notifyDataSetChanged();
     }
 
+    public void setPumpingListActivity(PumpingListActivity pumpingListActvity) {
+        this.pumpingListActvity = pumpingListActvity;
+    }
+
     static class PumpingItemViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.pumping_name)
+        TextView pumpingName;
 
-        private TextView pumpingName;
+        private Pumping pumping;
+        private PumpingListActivity pumpingListActivity;
 
-        public PumpingItemViewHolder(View itemView) {
+        public PumpingItemViewHolder(View itemView, PumpingListActivity pumpingListActivity) {
             super(itemView);
+            this.pumpingListActivity = pumpingListActivity;
+
             pumpingName = itemView.findViewById(R.id.pumping_name);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    PumpingItemViewHolder.this.pumpingListActivity.onPumpingSelected(pumping);
+                }
+            });
         }
 
-        void setPumpingName(String name){
-            pumpingName.setText(name);
+        void setPumping(Pumping pumping){
+            this.pumping = pumping;
+            pumpingName.setText("Выкачка #" + pumping.getId());
         }
     }
 }

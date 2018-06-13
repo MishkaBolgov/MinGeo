@@ -33,9 +33,10 @@ public class SimpleDataManager implements DataManager {
         asyncDbOperationManager.add(new Borehole(pumping), listener);
     }
 
+
     @Override
-    public void createBoreholeDepth(Borehole borehole, OnItemAddedListener listener) {
-        asyncDbOperationManager.add(new BoreholeDepth(borehole), listener);
+    public void createBoreholeDepth(Borehole borehole, int depth, OnItemAddedListener listener) {
+        asyncDbOperationManager.add(new BoreholeDepth(borehole, depth), listener);
     }
 
     @Override

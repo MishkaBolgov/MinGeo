@@ -8,4 +8,6 @@ import mishka.mingeo.view.MvpView;
 public interface BoreholeMvpView extends MvpView {
     void addBoreholeDepth(BoreholeDepth boreholeDepth);
     void updateChart(List<BoreholeDepth> depths);
+
+    void updateBoreholeDepthList(List<BoreholeDepth> items);
 }

@@ -6,8 +6,9 @@ import mishka.mingeo.view.MvpPresenter;
 
 public interface BoreholeMvpPresenter extends MvpPresenter {
     void setBorehole(Borehole borehole);
-    void addBoreholeDepth();
+    void createBoreholeDepth(int depth);
 
     void onBoreholeDepthUpdate(BoreholeDepth boreholeDepth);
 
+    void onViewResume();
 }

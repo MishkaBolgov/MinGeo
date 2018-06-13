@@ -1,26 +1,28 @@
 package mishka.mingeo.view.pumping.borehole;
 
-import android.arch.persistence.room.Insert;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import mishka.mingeo.R;
-import mishka.mingeo.data.datamanager.DataManager;
 import mishka.mingeo.data.model.Borehole;
 import mishka.mingeo.data.model.BoreholeDepth;
+import mishka.mingeo.view.ZebraItemViewHolder;
 
 public class DepthsAdapter extends RecyclerView.Adapter<DepthsAdapter.DepthViewHolder> {
     private List<BoreholeDepth> boreholeDepths;
@@ -44,6 +46,7 @@ public class DepthsAdapter extends RecyclerView.Adapter<DepthsAdapter.DepthViewH
     @Override
     public void onBindViewHolder(DepthViewHolder holder, int position) {
         holder.setBoreholeDepth(boreholeDepths.get(position));
+        holder.setPositionOddityDependingBackground(position);
     }
 
     @Override
@@ -53,15 +56,21 @@ public class DepthsAdapter extends RecyclerView.Adapter<DepthsAdapter.DepthViewH
 
     public void addBoreholeDepth(BoreholeDepth boreholeDepth) {
         boreholeDepths.add(boreholeDepth);
+        notifyItemInserted(boreholeDepths.size() - 1);
+    }
+
+    public void setBoreholeDepths(List<BoreholeDepth> boreholeDepths) {
+        this.boreholeDepths = boreholeDepths;
         notifyDataSetChanged();
     }
 
-    static class DepthViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.depth)
-        EditText depth;
+    static class DepthViewHolder extends ZebraItemViewHolder {
 
-        @BindView(R.id.save_depth)
-        Button saveDepth;
+        @BindView(R.id.saved_depth)
+        TextView savedDepth;
+
+        @BindView(R.id.saved_depth_date)
+        TextView savedDepthDate;
 
         BoreholeDepth boreholeDepth;
 
@@ -72,18 +81,15 @@ public class DepthsAdapter extends RecyclerView.Adapter<DepthsAdapter.DepthViewH
             super(itemView);
             this.fragment = fragment;
             ButterKnife.bind(this, itemView);
+            itemView.setBackgroundColor(new Random().nextInt());
         }
 
         public void setBoreholeDepth(BoreholeDepth boreholeDepth) {
             this.boreholeDepth = boreholeDepth;
-        }
+            savedDepth.setText("" + boreholeDepth.getDepth());
+            savedDepthDate.setText("" + boreholeDepth.getMonthDayDate());
 
-        @OnClick(R.id.save_depth)
-        void onSaveDepthClick() {
-            boreholeDepth.setDepth(Integer.parseInt(depth.getText().toString()));
-            fragment.onBoreholeDepthUpdate(boreholeDepth);
-            saveDepth.setVisibility(View.GONE);
-            saveDepth.setEnabled(false);
+
         }
     }
 }

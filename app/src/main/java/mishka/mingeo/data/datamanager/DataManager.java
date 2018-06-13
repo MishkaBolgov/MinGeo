@@ -10,7 +10,7 @@ public interface DataManager{
 
     void createPumping(OnItemAddedListener listener);
     void createBorehole(Pumping pumping, OnItemAddedListener listener);
-    void createBoreholeDepth(Borehole borehole, OnItemAddedListener listener);
+    void createBoreholeDepth(Borehole borehole, int depth, OnItemAddedListener listener);
 
     void updateBoreholeDepth(BoreholeDepth boreholeDepth, OnDbOperationFinishedListener listener);
 
@@ -28,7 +28,7 @@ public interface DataManager{
     }
 
     interface OnItemAddedListener<T>{
-        void onItemCreated(T addedObject);
+        void onItemCreated(T addedItem);
     }
 
     interface OnDbOperationFinishedListener {

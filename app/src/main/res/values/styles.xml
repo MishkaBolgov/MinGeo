@@ -1,16 +1,26 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="LabelStyle">
-        <item name="android:textSize">@dimen/labelTextSize</item>
+    <style name="PrimaryLabelStyle">
+        <item name="android:textSize">@dimen/primaryLabelTextSize</item>
         <item name="android:textColor">@color/textColorDark</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:paddingBottom">@dimen/labelItemVerticalPadding</item>
+        <item name="android:paddingTop">@dimen/labelItemVerticalPadding</item>
+    </style>
+
+    <style name="SecondaryLabelStyle">
+        <item name="android:textSize">@dimen/secondaryLabelTextSize</item>
+        <item name="android:textColor">@color/textColorDarkSecondary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
         <item name="android:paddingBottom">@dimen/labelItemVerticalPadding</item>
         <item name="android:paddingTop">@dimen/labelItemVerticalPadding</item>
     </style>

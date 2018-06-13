@@ -29,7 +29,7 @@ public class PumpingListActivity extends BaseActivity implements PumpingListMvpV
     @BindView(R.id.pumping_list)
     RecyclerView pumpingList;
 
-    @BindView(R.id.btn_add_pumping)
+    @BindView(R.id.btn_action)
     FloatingActionButton btnAddPumping;
 
 
@@ -53,6 +53,8 @@ public class PumpingListActivity extends BaseActivity implements PumpingListMvpV
         ActivityComponent activityComponent = activityComponentBuilder.build();
         activityComponent.inject(this);
 
+        adapter.setPumpingListActivity(this);
+
         ButterKnife.bind(this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         pumpingList.setLayoutManager(layoutManager);
@@ -65,7 +67,7 @@ public class PumpingListActivity extends BaseActivity implements PumpingListMvpV
 
     }
 
-    @OnClick(R.id.btn_add_pumping)
+    @OnClick(R.id.btn_action)
     void onAddPumpingClick(){
         presenter.onAddPumpingClick();
     }

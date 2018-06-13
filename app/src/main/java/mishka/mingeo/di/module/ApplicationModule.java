@@ -4,6 +4,8 @@ import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 import mishka.mingeo.data.datamanager.DataManager;
@@ -30,6 +32,7 @@ public class ApplicationModule {
     }
 
     @Provides
+    @Singleton
     DataManager provideDataManager(SimpleDataManager dataManager) {
         return dataManager;
     }

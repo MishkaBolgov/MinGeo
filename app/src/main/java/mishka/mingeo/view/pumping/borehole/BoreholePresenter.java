@@ -29,14 +29,33 @@ public class BoreholePresenter implements BoreholeMvpPresenter {
     @Override
     public void setBorehole(Borehole borehole) {
         this.borehole = borehole;
+        dataManager.fetchBoreholeDepthsForBorehole(borehole, new DataManager.OnItemsFetchedListener<BoreholeDepth>() {
+
+            @Override
+            public void onItemsFetched(List<BoreholeDepth> items) {
+                view.updateBoreholeDepthList(items);
+            }
+        });
     }
 
     @Override
-    public void addBoreholeDepth() {
-        dataManager.createBoreholeDepth(borehole, new DataManager.OnItemAddedListener<BoreholeDepth>() {
+    public void createBoreholeDepth(int depth) {
+        dataManager.createBoreholeDepth(borehole, depth, new DataManager.OnItemAddedListener<BoreholeDepth>() {
             @Override
-            public void onItemCreated(BoreholeDepth boreholeDepth) {
-                view.addBoreholeDepth(boreholeDepth);
+            public void onItemCreated(BoreholeDepth addedItem) {
+                updateListAndChart();
+            }
+        });
+    }
+
+    private void updateListAndChart(){
+        dataManager.fetchBoreholeDepthsForBorehole(borehole, new DataManager.OnItemsFetchedListener<BoreholeDepth>() {
+            @Override
+            public void onItemsFetched(List<BoreholeDepth> items) {
+                System.out.println("depths: "+new Gson().toJson(items));
+                if(items.size() > 0)
+                view.updateChart(items);
+                view.updateBoreholeDepthList(items);
             }
         });
     }
@@ -54,6 +73,11 @@ public class BoreholePresenter implements BoreholeMvpPresenter {
                 });
             }
         });
+    }
+
+    @Override
+    public void onViewResume() {
+        updateListAndChart();
     }
 
 }

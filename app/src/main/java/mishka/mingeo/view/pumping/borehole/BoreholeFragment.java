@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.List;
 
@@ -20,19 +21,21 @@ import mishka.mingeo.R;
 import mishka.mingeo.data.model.Borehole;
 import mishka.mingeo.data.model.BoreholeDepth;
 import mishka.mingeo.view.BaseFragment;
-import mishka.mingeo.view.pumping.borehole.depthchart.DepthChartFragment;
 import mishka.mingeo.view.pumping.borehole.depthchart.DepthChartMvpView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BoreholeFragment extends BaseFragment implements BoreholeMvpView {
+public class BoreholeFragment extends BaseFragment implements BoreholeMvpView, AddDepthDialog.AddDepthDialogListener {
 
     @Inject
     BoreholeMvpPresenter presenter;
 
     @BindView(R.id.depths)
     RecyclerView depthsRecyclerView;
+
+    @BindView(R.id.add_depth)
+    Button addDepth;
 
     @Inject
     DepthsAdapter adapter;
@@ -66,13 +69,14 @@ public class BoreholeFragment extends BaseFragment implements BoreholeMvpView {
         depthsRecyclerView.setLayoutManager(layoutManager);
         depthsRecyclerView.setAdapter(adapter);
 
-
         return view;
     }
 
     @OnClick(R.id.add_depth)
     void onAddDepthClick() {
-        presenter.addBoreholeDepth();
+        AddDepthDialog addDepthDialog = new AddDepthDialog();
+        addDepthDialog.setListener(this);
+        addDepthDialog.show(getActivity().getFragmentManager(), "add_depth");
     }
 
     @Override
@@ -81,11 +85,24 @@ public class BoreholeFragment extends BaseFragment implements BoreholeMvpView {
     }
 
     @Override
-    public void updateChart(List<BoreholeDepth> depths) {
-        depthChartFragment.update(depths);
+    public void onResume() {
+        super.onResume();
+        presenter.onViewResume();
     }
 
-    public void onBoreholeDepthUpdate(BoreholeDepth boreholeDepth) {
-        presenter.onBoreholeDepthUpdate(boreholeDepth);
+    @Override
+    public void updateChart(List<BoreholeDepth> depths) {
+        depthChartFragment.update(depths);
+        depthChartFragment.showIfHidden();
+    }
+
+    @Override
+    public void updateBoreholeDepthList(List<BoreholeDepth> items) {
+        adapter.setBoreholeDepths(items);
+    }
+
+    @Override
+    public void onDepthSet(int depth) {
+        presenter.createBoreholeDepth(depth);
     }
 }

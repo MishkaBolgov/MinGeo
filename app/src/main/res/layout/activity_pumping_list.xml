@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="mishka.mingeo.view.pumpinglist.PumpingListActivity">
 
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/pumping_list"
@@ -15,6 +15,11 @@
         android:layout_below="@id/toolbar"
         android:background="@color/colorWhite"></android.support.v7.widget.RecyclerView>
 
-    <include layout="@layout/floating_button"/>
-
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true">
+        <include layout="@layout/floating_button" />
+    </FrameLayout>
 </RelativeLayout>

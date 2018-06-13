@@ -44,6 +44,7 @@ public class DepthChartFragment extends Fragment implements DepthChartMvpView {
 
         ButterKnife.bind(this, view);
 
+        view.setVisibility(View.GONE);
 
         return view;
     }
@@ -55,21 +56,27 @@ public class DepthChartFragment extends Fragment implements DepthChartMvpView {
 
 
         for (BoreholeDepth depth : depths) {
-            System.out.println("depth #" + depth.getId() + ": " + depth.getMinutes() + " " + depth.getDepth());
             entries.add(new Entry(depth.getMinutes(), depth.getDepth()));
         }
 
         LineDataSet lineDataSet = new LineDataSet(entries, "Depth/Time");
         lineDataSet.setLineWidth(4);
+        lineDataSet.setColor(getResources().getColor(R.color.colorSecondary));
+        lineDataSet.setCircleColor(getResources().getColor(R.color.colorPrimary));
 
         LineData lineData = new LineData(lineDataSet);
 
         Description description = new Description();
         description.setText("");
         chart.setDescription(description);
-
         chart.setData(lineData);
         chart.invalidate();
 
+    }
+
+    @Override
+    public void showIfHidden() {
+        if(getView().getVisibility() != View.VISIBLE)
+            getView().setVisibility(View.VISIBLE);
     }
 }

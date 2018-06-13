@@ -7,4 +7,6 @@ import mishka.mingeo.view.MvpView;
 
 public interface DepthChartMvpView extends MvpView {
     void update(List<BoreholeDepth> depths);
+
+    void showIfHidden();
 }
