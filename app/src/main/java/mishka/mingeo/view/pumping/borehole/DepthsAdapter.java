@@ -26,22 +26,18 @@ import mishka.mingeo.view.ZebraItemViewHolder;
 
 public class DepthsAdapter extends RecyclerView.Adapter<DepthsAdapter.DepthViewHolder> {
     private List<BoreholeDepth> boreholeDepths;
-    private BoreholeFragment boreholeFragment;
 
     @Inject
     public DepthsAdapter() {
         this.boreholeDepths = new ArrayList<>();
     }
 
-    public void setBoreholeFragment(BoreholeFragment boreholeFragment) {
-        this.boreholeFragment = boreholeFragment;
-    }
-
     @Override
     public DepthViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.borehole_depth, parent, false);
-        return new DepthViewHolder(view, boreholeFragment);
+        return new DepthViewHolder(view);
     }
+
 
     @Override
     public void onBindViewHolder(DepthViewHolder holder, int position) {
@@ -64,6 +60,12 @@ public class DepthsAdapter extends RecyclerView.Adapter<DepthsAdapter.DepthViewH
         notifyDataSetChanged();
     }
 
+    public void updateBoreholeDepths(List<BoreholeDepth> boreholeDepths) {
+        this.boreholeDepths = boreholeDepths;
+        notifyDataSetChanged();
+
+    }
+
     static class DepthViewHolder extends ZebraItemViewHolder {
 
         @BindView(R.id.saved_depth)
@@ -74,12 +76,8 @@ public class DepthsAdapter extends RecyclerView.Adapter<DepthsAdapter.DepthViewH
 
         BoreholeDepth boreholeDepth;
 
-        BoreholeFragment fragment;
-
-
-        public DepthViewHolder(View itemView, BoreholeFragment fragment) {
+        public DepthViewHolder(View itemView) {
             super(itemView);
-            this.fragment = fragment;
             ButterKnife.bind(this, itemView);
             itemView.setBackgroundColor(new Random().nextInt());
         }
@@ -88,8 +86,6 @@ public class DepthsAdapter extends RecyclerView.Adapter<DepthsAdapter.DepthViewH
             this.boreholeDepth = boreholeDepth;
             savedDepth.setText("" + boreholeDepth.getDepth());
             savedDepthDate.setText("" + boreholeDepth.getMonthDayDate());
-
-
         }
     }
 }

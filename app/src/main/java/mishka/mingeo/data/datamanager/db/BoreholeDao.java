@@ -1,5 +1,6 @@
 package mishka.mingeo.data.datamanager.db;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
@@ -19,4 +20,8 @@ public interface BoreholeDao {
 
     @Query("SELECT * FROM borehole WHERE id=:id")
     Borehole getBoreholeById(int id);
+
+
+    @Query("SELECT * FROM borehole WHERE pumpingId=:pumpingId")
+    LiveData<List<Borehole>> getLiveBoreholesForPumping(int pumpingId);
 }

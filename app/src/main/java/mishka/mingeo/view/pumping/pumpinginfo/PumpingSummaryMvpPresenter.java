@@ -1,9 +1,8 @@
 package mishka.mingeo.view.pumping.pumpinginfo;
 
 import mishka.mingeo.data.model.Pumping;
-import mishka.mingeo.view.MvpPresenter;
 
-public interface PumpingSummaryMvpPresenter extends MvpPresenter {
+public interface PumpingSummaryMvpPresenter {
     void setPumping(Pumping pumping);
 
 }

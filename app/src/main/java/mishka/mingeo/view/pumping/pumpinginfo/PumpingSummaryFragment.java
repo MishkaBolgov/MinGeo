@@ -8,9 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -22,13 +19,14 @@ import butterknife.OnClick;
 import mishka.mingeo.R;
 import mishka.mingeo.data.model.Borehole;
 import mishka.mingeo.data.model.Pumping;
-import mishka.mingeo.view.BaseFragment;
+import mishka.mingeo.di.component.ActivityComponent;
+import mishka.mingeo.di.module.ActivityModule;
 import mishka.mingeo.view.pumping.PumpingActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PumpingSummaryFragment extends BaseFragment implements PumpingSummaryMvpView{
+public class PumpingSummaryFragment extends Fragment implements PumpingSummaryMvpView{
 
     @BindView(R.id.rv_borehole_summary)
     RecyclerView rvBoreholeSummary;
@@ -51,10 +49,11 @@ public class PumpingSummaryFragment extends BaseFragment implements PumpingSumma
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pumping_summary, container, false);
 
-        getActivityComponent().inject(this);
-        ButterKnife.bind(this, view);
+//        ActivityComponent activityComponent = DaggerActivityComponent.builder()
+//                .activityModule(new ActivityModule(getActivity())).build();
 
-        presenter.setMvpView(this);
+//        activityComponent.inject(this);
+        ButterKnife.bind(this, view);
 
         Pumping pumping = (Pumping) getArguments().getSerializable("pumping");
         presenter.setPumping(pumping);
@@ -73,7 +72,7 @@ public class PumpingSummaryFragment extends BaseFragment implements PumpingSumma
 
     @OnClick(R.id.btn_action)
     void onAddBoreholeClick(){
-        ((PumpingActivity)getActivity()).onAddBoreholeClick();
+//        ((PumpingActivity)getActivity()).onAddBoreholeClick();
     }
 
     @Override

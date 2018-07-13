@@ -1,5 +1,6 @@
 package mishka.mingeo.data.datamanager.db;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
@@ -19,4 +20,7 @@ public interface PumpingDao {
 
     @Query("SELECT * FROM pumping WHERE id=:id")
     Pumping getPumpingById(int id);
+
+    @Query("SELECT * FROM pumping")
+    LiveData<List<Pumping>> getAllPumpings();
 }

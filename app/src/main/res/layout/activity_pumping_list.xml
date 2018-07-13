@@ -15,11 +15,7 @@
         android:layout_below="@id/toolbar"
         android:background="@color/colorWhite"></android.support.v7.widget.RecyclerView>
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true">
-        <include layout="@layout/floating_button" />
-    </FrameLayout>
+    <include layout="@layout/floating_button"/>
+
+
 </RelativeLayout>

@@ -1,18 +1,14 @@
 package mishka.mingeo.di.component;
 
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+
 import dagger.Component;
 import mishka.mingeo.di.ActivityScope;
 import mishka.mingeo.di.module.ActivityModule;
-import mishka.mingeo.view.pumping.PumpingActivity;
-import mishka.mingeo.view.pumping.borehole.BoreholeFragment;
-import mishka.mingeo.view.pumping.pumpinginfo.PumpingSummaryFragment;
-import mishka.mingeo.view.pumpinglist.PumpingListActivity;
 
-@Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class})
-@ActivityScope
+@Component(modules = {ActivityModule.class})
 public interface ActivityComponent {
-    void inject(PumpingListActivity activity);
-    void inject(PumpingActivity activity);
-    void inject(BoreholeFragment boreholeFragment);
-    void inject(PumpingSummaryFragment pumpingSummaryFragment);
+    FragmentActivity getActivity();
+    FragmentManager getFragmentManager();
 }
