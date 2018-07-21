@@ -28,13 +28,13 @@ import mishka.mingeo.view.pumping.PumpingActivity;
  */
 public class PumpingSummaryFragment extends Fragment implements PumpingSummaryMvpView{
 
-    @BindView(R.id.rv_borehole_summary)
+//    @BindView(R.id.rv_borehole_summary)
     RecyclerView rvBoreholeSummary;
 
-    @Inject
+//    @Inject
     BoreholeSummaryAdapter adapter;
 
-    @Inject
+//    @Inject
     PumpingSummaryMvpPresenter presenter;
 
 
@@ -53,7 +53,7 @@ public class PumpingSummaryFragment extends Fragment implements PumpingSummaryMv
 //                .activityModule(new ActivityModule(getActivity())).build();
 
 //        activityComponent.inject(this);
-        ButterKnife.bind(this, view);
+//        ButterKnife.bind(this, view);
 
         Pumping pumping = (Pumping) getArguments().getSerializable("pumping");
         presenter.setPumping(pumping);
@@ -70,7 +70,7 @@ public class PumpingSummaryFragment extends Fragment implements PumpingSummaryMv
         return view;
     }
 
-    @OnClick(R.id.btn_action)
+//    @OnClick(R.id.btn_action)
     void onAddBoreholeClick(){
 //        ((PumpingActivity)getActivity()).onAddBoreholeClick();
     }

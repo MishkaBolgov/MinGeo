@@ -10,7 +10,7 @@ public class PumpingSummaryPresenter implements PumpingSummaryMvpPresenter {
     private DataManager dataManager;
     private PumpingSummaryMvpView view;
 
-    @Inject
+//    @Inject
     public PumpingSummaryPresenter(DataManager dataManager) {
         this.dataManager = dataManager;
     }

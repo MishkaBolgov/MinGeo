@@ -24,7 +24,7 @@ public class BoreholeSummaryAdapter extends RecyclerView.Adapter<BoreholeSummary
     private List<Borehole> boreholes;
     private BoreholeSummaryViewHolder.OnBoreholeClickListener listener;
 
-    @Inject
+//    @Inject
     public BoreholeSummaryAdapter() {
         boreholes = new ArrayList<>();
     }

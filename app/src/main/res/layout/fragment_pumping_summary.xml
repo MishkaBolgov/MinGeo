@@ -16,20 +16,11 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/label">
+        android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_borehole_summary"
+            android:id="@+id/rvBoreholesSummary"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </ScrollView>
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
-        <include layout="@layout/floating_button" />
-    </FrameLayout>
 </RelativeLayout>

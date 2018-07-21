@@ -25,9 +25,10 @@ import mishka.mingeo.di.component.DaggerPumpingActivityComponent;
 import mishka.mingeo.di.component.PumpingActivityComponent;
 import mishka.mingeo.di.module.PumpingModule;
 import mishka.mingeo.view.BaseActivity;
+import mishka.mingeo.view.BaseActivityKt;
 import mishka.mingeo.view.pumping.pumpinginfo.BoreholeSummaryAdapter;
 
-public class PumpingActivity extends BaseActivity implements BoreholeSummaryAdapter.BoreholeSummaryViewHolder.OnBoreholeClickListener {
+public class PumpingActivity extends BaseActivityKt implements BoreholeSummaryAdapter.BoreholeSummaryViewHolder.OnBoreholeClickListener {
 
     @BindView(R.id.borehole_pager)
     ViewPager boreholePager;
