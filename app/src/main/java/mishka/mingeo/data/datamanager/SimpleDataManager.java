@@ -3,6 +3,8 @@ package mishka.mingeo.data.datamanager;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -49,7 +51,7 @@ public class SimpleDataManager implements DataManager {
 
     @Override
     public void createPumping() {
-        new AsyncTask<Void, Void, Void>(){
+        new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 pumpingDao.addPumping(new Pumping());
@@ -60,7 +62,7 @@ public class SimpleDataManager implements DataManager {
 
     @Override
     public void createBorehole(final Pumping pumping) {
-        new AsyncTask<Void, Void, Void>(){
+        new AsyncTask<Void, Void, Void>() {
 
             @Override
             protected Void doInBackground(Void... voids) {
@@ -83,7 +85,7 @@ public class SimpleDataManager implements DataManager {
 
     @Override
     public void addBoreholeDepth(final BoreholeDepth boreholeDepth) {
-        new AsyncTask<Void, Void, Void>(){
+        new AsyncTask<Void, Void, Void>() {
 
             @Override
             protected Void doInBackground(Void... voids) {
@@ -102,6 +104,35 @@ public class SimpleDataManager implements DataManager {
     @Override
     public void updateBoreholeDepth(BoreholeDepth boreholeDepth, OnDbOperationFinishedListener listener) {
         asyncDbOperationManager.updateBoreholeDepth(boreholeDepth, listener);
+    }
+
+    @Override
+    public void setPumpPowerForPumping(final Pumping pumping, final float power) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                System.out.println("update power: " + pumping.getPumpPower() + " -> " + power);
+                pumpingDao.updatePumpPowerForPumping(pumping.getId(), power);
+                return null;
+            }
+        }.execute();
+    }
+
+    @NotNull
+    @Override
+    public LiveData<Pumping> getPumpingById(int id) {
+        return pumpingDao.getLivePumpingById(id);
+    }
+
+    @Override
+    public void setDistanceForBorehole(@NotNull final Borehole borehole, final int distance) {
+        new AsyncTask<Void, Void, Void>(){
+            @Override
+            protected Void doInBackground(Void... voids) {
+                boreholeDao.updateDistance(borehole.getId(), distance);
+                return null;
+            }
+        }.execute();
     }
 
     private static class FetchPumpingsAsyncTask extends AsyncTask<Void, Void, List<Pumping>> {

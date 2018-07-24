@@ -12,4 +12,5 @@
 
     <color name="evenListBackground">#ffffff</color>
     <color name="oddListBackground">#1e7265a3</color>
+    <color name="background">#dadada</color>
 </resources>

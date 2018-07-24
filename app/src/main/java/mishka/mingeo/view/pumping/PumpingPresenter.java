@@ -22,14 +22,14 @@ public class PumpingPresenter {
         this.pumping = pumping;
     }
 
-    private void updateView() {
-        dataManager.fetchBoreholesForPumping(pumping, new DataManager.OnItemsFetchedListener<Borehole>() {
-            @Override
-            public void onItemsFetched(List<Borehole> boreholes) {
-//                PumpingPresenter.this.view.updateBoreholes(boreholes);
-            }
-        });
-    }
+//    private void updateView() {
+//        dataManager.fetchBoreholesForPumping(pumping, new DataManager.OnItemsFetchedListener<Borehole>() {
+//            @Override
+//            public void onItemsFetched(List<Borehole> boreholes) {
+////                PumpingPresenter.this.view.updateBoreholes(boreholes);
+//            }
+//        });
+//    }
 
 
 

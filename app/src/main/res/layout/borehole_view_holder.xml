@@ -2,10 +2,18 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="@style/CardViewStyle">
+
+    android:layout_marginBottom="@dimen/pumpingItemVerticalMargin"
+    android:layout_marginTop="@dimen/pumpingItemVerticalMargin"
+    android:layout_marginLeft="@dimen/pumpingItemHorizontalMargin"
+    android:layout_marginRight="@dimen/pumpingItemHorizontalMargin"
+
+    android:elevation="@dimen/cardElevation"
+
+    android:background="@color/colorWhite">
 
     <TextView
-        android:id="@+id/pumping_name"
+        android:id="@+id/boreholeId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

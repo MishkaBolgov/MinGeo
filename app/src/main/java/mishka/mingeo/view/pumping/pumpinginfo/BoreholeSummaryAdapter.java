@@ -84,7 +84,7 @@ public class BoreholeSummaryAdapter extends RecyclerView.Adapter<BoreholeSummary
 
         public void setPosition(int position) {
             this.position = position;
-            boreholeName.setText("Скважина #" + position);
+            boreholeName.setText("Скважина №" + position);
             setPositionOddityDependingBackground(position);
         }
 

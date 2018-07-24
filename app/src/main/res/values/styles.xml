@@ -25,6 +25,18 @@
         <item name="android:paddingTop">@dimen/labelItemVerticalPadding</item>
     </style>
 
+    <style name="CardViewStyle">
+
+        <item name="android:layout_marginBottom">@dimen/pumpingItemVerticalMargin</item>
+        <item name="android:layout_marginTop">@dimen/pumpingItemVerticalMargin</item>
+        <item name="android:layout_marginLeft">@dimen/pumpingItemHorizontalMargin</item>
+        <item name="android:layout_marginRight">@dimen/pumpingItemHorizontalMargin</item>
+
+        <item name="android:elevation">@dimen/cardElevation</item>
+
+        <item name="android:background">@color/colorWhite</item>
+    </style>
+
 
 
 </resources>

@@ -6,6 +6,4 @@ import mishka.mingeo.data.model.BoreholeDepth;
 
 public interface DepthChartMvpView {
     void update(List<BoreholeDepth> depths);
-
-    void showIfHidden();
 }

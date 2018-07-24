@@ -46,8 +46,8 @@ public class PumpingListAdapter extends RecyclerView.Adapter<PumpingListAdapter.
         notifyDataSetChanged();
     }
 
-    public void setPumpingListActivity(PumpingListActivity pumpingListActvity) {
-        this.pumpingListActvity = pumpingListActvity;
+    public void setPumpingListActivity(PumpingListActivity pumpingListActivity) {
+        this.pumpingListActvity = pumpingListActivity;
     }
 
     static class PumpingItemViewHolder extends RecyclerView.ViewHolder {

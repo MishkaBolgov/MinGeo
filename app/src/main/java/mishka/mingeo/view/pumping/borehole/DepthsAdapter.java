@@ -79,7 +79,6 @@ public class DepthsAdapter extends RecyclerView.Adapter<DepthsAdapter.DepthViewH
         public DepthViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            itemView.setBackgroundColor(new Random().nextInt());
         }
 
         public void setBoreholeDepth(BoreholeDepth boreholeDepth) {

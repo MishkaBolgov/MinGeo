@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="mishka.mingeo.view.pumping.PumpingActivity"
-    android:background="@color/colorWhite">
+    android:background="@color/background">
 
 
     <include layout="@layout/toolbar" />

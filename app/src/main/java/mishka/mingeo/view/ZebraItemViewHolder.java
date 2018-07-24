@@ -11,8 +11,8 @@ public abstract class ZebraItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setPositionOddityDependingBackground(int position) {
-        if (position % 2 == 0)
-            super.itemView.setBackgroundResource(R.color.oddListBackground);
-        else super.itemView.setBackgroundResource(R.color.evenListBackground);
+//        if (position % 2 == 0)
+//            super.itemView.setBackgroundResource(R.color.oddListBackground);
+//        else super.itemView.setBackgroundResource(R.color.evenListBackground);
     }
 }

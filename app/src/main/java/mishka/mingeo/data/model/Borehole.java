@@ -22,11 +22,13 @@ public class Borehole implements Serializable, DatabaseEntity  {
 
 
     public Borehole() {
+        distanceFromCentral = 0;
     }
 
     public Borehole(Pumping pumping) {
         this.pumpingId = pumping.getId();
         this.distanceFromCentral = new Random().nextInt();
+        distanceFromCentral = 0;
     }
 
     public int getId() {
