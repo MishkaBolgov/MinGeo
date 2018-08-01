@@ -3,19 +3,13 @@
     <dimen name="primaryLabelTextSize">18sp</dimen>
     <dimen name="secondaryLabelTextSize">14sp</dimen>
 
-    <dimen name="cardElevation">4dp</dimen>
 
-    <!--Pumpings list-->
-    <dimen name="pumpingItemHorizontalMargin">2dp</dimen>
-    <dimen name="pumpingItemVerticalMargin">2dp</dimen>
-    <dimen name="pumpingItemHorizontalPadding">14dp</dimen>
-    <dimen name="pumpingItemVerticalPadding">12dp</dimen>
-    <dimen name="pumpingItemTextSize">18sp</dimen>
-
-    <!--Borehole fragment-->
-    <dimen name="labelItemHorizontalMargin">2dp</dimen>
-    <dimen name="labelItemVerticalMargin">2dp</dimen>
-    <dimen name="labelItemHorizontalPadding">14dp</dimen>
-    <dimen name="labelItemVerticalPadding">12dp</dimen>
+    <!--CardView-->
+    <dimen name="cardViewCornerRadius">4dp</dimen>
+    <dimen name="cardViewElevation">4dp</dimen>
+    <dimen name="cardViewHorizontalMargin">10dp</dimen>
+    <dimen name="cardViewVerticalMargin">10dp</dimen>
+    <dimen name="cardViewHorizontalPadding">10dp</dimen>
+    <dimen name="cardViewVerticalPadding">10dp</dimen>
 
 </resources>

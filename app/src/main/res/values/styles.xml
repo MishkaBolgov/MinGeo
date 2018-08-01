@@ -2,40 +2,26 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
 
-    <style name="PrimaryLabelStyle">
-        <item name="android:textSize">@dimen/primaryLabelTextSize</item>
-        <item name="android:textColor">@color/textColorDark</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:paddingBottom">@dimen/labelItemVerticalPadding</item>
-        <item name="android:paddingTop">@dimen/labelItemVerticalPadding</item>
-    </style>
-
-    <style name="SecondaryLabelStyle">
-        <item name="android:textSize">@dimen/secondaryLabelTextSize</item>
-        <item name="android:textColor">@color/textColorDarkSecondary</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:paddingBottom">@dimen/labelItemVerticalPadding</item>
-        <item name="android:paddingTop">@dimen/labelItemVerticalPadding</item>
     </style>
 
     <style name="CardViewStyle">
+        <item name="cardElevation">@dimen/cardViewElevation</item>
+        <item name="cardCornerRadius">@dimen/cardViewCornerRadius</item>
 
-        <item name="android:layout_marginBottom">@dimen/pumpingItemVerticalMargin</item>
-        <item name="android:layout_marginTop">@dimen/pumpingItemVerticalMargin</item>
-        <item name="android:layout_marginLeft">@dimen/pumpingItemHorizontalMargin</item>
-        <item name="android:layout_marginRight">@dimen/pumpingItemHorizontalMargin</item>
+        <item name="android:layout_marginBottom">@dimen/cardViewVerticalMargin</item>
+        <item name="android:layout_marginTop">@dimen/cardViewVerticalMargin</item>
+        <item name="android:layout_marginLeft">@dimen/cardViewHorizontalMargin</item>
+        <item name="android:layout_marginRight">@dimen/cardViewHorizontalMargin</item>
 
-        <item name="android:elevation">@dimen/cardElevation</item>
 
-        <item name="android:background">@color/colorWhite</item>
+        <item name="contentPaddingTop">@dimen/cardViewVerticalPadding</item>
+        <item name="contentPaddingBottom">@dimen/cardViewVerticalPadding</item>
+        <item name="contentPaddingLeft">@dimen/cardViewHorizontalPadding</item>
+        <item name="contentPaddingRight">@dimen/cardViewHorizontalPadding</item>
     </style>
+
+
 
 
 

@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6a1b9a</color>
-    <color name="colorPrimaryDark">#38006b</color>
-    <color name="colorAccent">@color/colorSecondary</color>
-
-    <color name="colorSecondary">#7265a3</color>
-    <color name="colorWhite">#ffffff</color>
-    <color name="textColorDark">#bb000000</color>
-    <color name="textColorDarkSecondary">#78000000</color>
-    <color name="textColorLight">#bbffffff</color>
-
-    <color name="evenListBackground">#ffffff</color>
-    <color name="oddListBackground">#1e7265a3</color>
-    <color name="background">#dadada</color>
+    <color name="primaryColor">#212121</color>
+    <color name="primaryLightColor">#484848</color>
+    <color name="primaryDarkColor">#000000</color>
+    <color name="secondaryColor">#9fa8da</color>
+    <color name="secondaryLightColor">#d1d9ff</color>
+    <color name="secondaryDarkColor">#6f79a8</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#000000</color>
 </resources>

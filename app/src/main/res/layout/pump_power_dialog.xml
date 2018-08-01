@@ -10,7 +10,6 @@
         android:layout_weight="1"
         android:inputType="number"
         android:imeOptions="actionDone"
-        android:layout_margin="24dp"
-        android:textColor="@color/textColorDark" />
+        android:layout_margin="24dp" />
 
 </LinearLayout>

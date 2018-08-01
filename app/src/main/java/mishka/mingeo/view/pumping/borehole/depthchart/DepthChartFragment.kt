@@ -42,8 +42,8 @@ class DepthChartFragment: Fragment(), DepthChartMvpView {
 
         val lineDataSet = LineDataSet(entries, "Глубина/Время")
         lineDataSet.lineWidth = 4f
-        lineDataSet.setColor(resources.getColor(R.color.colorSecondary))
-        lineDataSet.setCircleColor(resources.getColor(R.color.colorPrimary))
+//        lineDataSet.setColor(resources.getColor(R.color.colorSecondary))
+//        lineDataSet.setCircleColor(resources.getColor(R.color.colorPrimary))
 
         val lineData = LineData(lineDataSet)
 
