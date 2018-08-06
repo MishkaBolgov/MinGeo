@@ -84,7 +84,7 @@ public class DepthsAdapter extends RecyclerView.Adapter<DepthsAdapter.DepthViewH
         public void setBoreholeDepth(BoreholeDepth boreholeDepth) {
             this.boreholeDepth = boreholeDepth;
             savedDepth.setText("" + boreholeDepth.getDepth());
-            savedDepthDate.setText("" + boreholeDepth.getMonthDayDate());
+            savedDepthDate.setText("" + boreholeDepth.getFormatDate());
         }
     }
 }

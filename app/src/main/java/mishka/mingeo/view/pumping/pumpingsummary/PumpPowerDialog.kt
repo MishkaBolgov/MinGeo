@@ -23,7 +23,7 @@ class PumpPowerDialog : DialogFragment() {
 
         builder.setPositiveButton("Сохранить", object : DialogInterface.OnClickListener {
             override fun onClick(p0: DialogInterface?, p1: Int) {
-                val power = view.etPumpPower.text.toString().toInt()
+                val power = view.etPumpPower.text.toString().toFloat()
                 listener.onPumpPowerSet(power)
             }
 
@@ -33,6 +33,6 @@ class PumpPowerDialog : DialogFragment() {
     }
 
     interface OnSetPumpPowerListener {
-        fun onPumpPowerSet(value: Int)
+        fun onPumpPowerSet(value: Float)
     }
 }

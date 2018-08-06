@@ -34,7 +34,7 @@ public class AddDepthDialog extends DialogFragment {
                     Toast.makeText(getActivity(), "Введено недопустимое значение", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                int depth = Integer.parseInt(etDepth.getText().toString());
+                float depth = Float.parseFloat(etDepth.getText().toString());
                 listener.onDepthSet(depth);
             }
         });
@@ -47,6 +47,6 @@ public class AddDepthDialog extends DialogFragment {
     }
 
     interface AddDepthDialogListener{
-        void onDepthSet(int depth);
+        void onDepthSet(float depth);
     }
 }

@@ -13,8 +13,10 @@ class BoreholeViewModel(val dataManager: DataManager) : ViewModel() {
         return dataManager.getBoreholeDepthsForBorehole(borehole)
     }
 
-    fun onNewDepthValueSet(depth: Int) {
-        dataManager.addBoreholeDepth(BoreholeDepth(borehole, depth))
+    fun onNewDepthValueSet(depth: Float) {
+        borehole?.let {
+            dataManager.addBoreholeDepth(BoreholeDepth(it, depth))
+        }
     }
 
     fun updateDistance(distance: Int) {

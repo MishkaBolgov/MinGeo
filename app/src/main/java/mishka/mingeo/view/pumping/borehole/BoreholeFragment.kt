@@ -103,7 +103,7 @@ class BoreholeFragment : Fragment(), AddDepthDialog.AddDepthDialogListener, Dist
 
     }
 
-    override fun onDepthSet(depth: Int)
+    override fun onDepthSet(depth: Float)
     {
         setCurrentBoreholeAsCurrent()
         viewModel.onNewDepthValueSet(depth)

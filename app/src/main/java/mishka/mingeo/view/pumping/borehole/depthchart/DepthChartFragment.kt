@@ -31,13 +31,15 @@ class DepthChartFragment: Fragment(), DepthChartMvpView {
         if(depths.size == 0)
             return
 
+
         view?.visibility = View.VISIBLE
 
         val entries = ArrayList<Entry>()
 
+        val originDepth = depths.first().depth
 
         for (depth in depths.iterator())
-            entries.add(Entry(depth.minutes, depth.depth.toFloat()))
+            entries.add(Entry(depth.minutes, depth.relativeDepth(originDepth)))
 
 
         val lineDataSet = LineDataSet(entries, "Глубина/Время")
@@ -53,6 +55,11 @@ class DepthChartFragment: Fragment(), DepthChartMvpView {
         chart.data = lineData
         chart.invalidate()
 
+    }
+
+    private fun getRelativeDepths(depths: MutableList<BoreholeDepth>): List<Float> {
+        val firstDepth = depths.first().depth
+        return depths.map { it.depth - firstDepth }
     }
 
 }

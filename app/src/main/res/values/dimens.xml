@@ -8,7 +8,7 @@
     <dimen name="cardViewCornerRadius">4dp</dimen>
     <dimen name="cardViewElevation">4dp</dimen>
     <dimen name="cardViewHorizontalMargin">10dp</dimen>
-    <dimen name="cardViewVerticalMargin">10dp</dimen>
+    <dimen name="cardViewVerticalMargin">4dp</dimen>
     <dimen name="cardViewHorizontalPadding">10dp</dimen>
     <dimen name="cardViewVerticalPadding">10dp</dimen>
 

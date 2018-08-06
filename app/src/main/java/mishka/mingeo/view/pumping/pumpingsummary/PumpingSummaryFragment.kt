@@ -89,8 +89,8 @@ class PumpingSummaryFragment : Fragment(), PumpPowerDialog.OnSetPumpPowerListene
         pumpPowerDialog.show(activity.fragmentManager, "set_pump_power")
     }
 
-    override fun onPumpPowerSet(value: Int) {
-        viewModel.updatePumpPower(value.toFloat())
+    override fun onPumpPowerSet(value: Float) {
+        viewModel.updatePumpPower(value)
     }
 
 }
