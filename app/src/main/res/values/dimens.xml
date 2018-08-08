@@ -12,4 +12,11 @@
     <dimen name="cardViewHorizontalPadding">10dp</dimen>
     <dimen name="cardViewVerticalPadding">10dp</dimen>
 
+    <!--Label-->
+    <dimen name="large_label_text_size">18dp</dimen>
+    <dimen name="label_text_size">16dp</dimen>
+    <dimen name="label_margin">10dp</dimen>
+    <dimen name="cardTextHorizontalMargin">10dp</dimen>
+
+
 </resources>

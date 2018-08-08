@@ -27,7 +27,7 @@ public class PumpingListAdapter extends RecyclerView.Adapter<PumpingListAdapter.
 
     @Override
     public PumpingItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pumping_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
         return new PumpingItemViewHolder(view, pumpingListActvity);
     }
 
@@ -51,7 +51,7 @@ public class PumpingListAdapter extends RecyclerView.Adapter<PumpingListAdapter.
     }
 
     static class PumpingItemViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.pumping_name)
+        @BindView(R.id.left_content)
         TextView pumpingName;
 
         private Pumping pumping;
@@ -61,7 +61,7 @@ public class PumpingListAdapter extends RecyclerView.Adapter<PumpingListAdapter.
             super(itemView);
             this.pumpingListActivity = pumpingListActivity;
 
-            pumpingName = itemView.findViewById(R.id.pumping_name);
+            pumpingName = itemView.findViewById(R.id.left_content);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -72,7 +72,7 @@ public class PumpingListAdapter extends RecyclerView.Adapter<PumpingListAdapter.
 
         void setPumping(Pumping pumping){
             this.pumping = pumping;
-            pumpingName.setText("Выкачка #" + pumping.getId());
+            pumpingName.setText("Выкачка " + pumping.getId());
         }
     }
 }

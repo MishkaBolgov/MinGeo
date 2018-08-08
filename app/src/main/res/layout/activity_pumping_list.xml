@@ -8,11 +8,17 @@
 
     <include layout="@layout/toolbar" />
 
+    <TextView
+        android:id="@+id/label"
+        style="@style/LabelStyle.Large"
+        android:text="Выкачки"
+        android:layout_below="@id/toolbar"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/pumping_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"></android.support.v7.widget.RecyclerView>
+        android:layout_below="@id/label"></android.support.v7.widget.RecyclerView>
 
     <include layout="@layout/floating_button"/>
 

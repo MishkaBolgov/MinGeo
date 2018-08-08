@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     style="@style/CardViewStyle">
 
     <TextView
-        android:id="@+id/pumping_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:id="@+id/left_content"
+        style="@style/CardText.Left"/>
+
+    <TextView
+        android:id="@+id/right_content"
+        style="@style/CardText.Right"/>
 
 </android.support.v7.widget.CardView>

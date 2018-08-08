@@ -15,11 +15,11 @@ class BoreholeSummaryAdapter @Inject constructor(): RecyclerView.Adapter<Borehol
         field = value
         notifyDataSetChanged()
     }
-
+    lateinit var boreholeSelectedListener: BoreholeSelectedListener
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BoreholeViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.borehole_view_holder, parent, false)
-        return BoreholeViewHolder(view)
+        return BoreholeViewHolder(view, boreholeSelectedListener)
     }
 
     override fun getItemCount(): Int {
@@ -28,15 +28,24 @@ class BoreholeSummaryAdapter @Inject constructor(): RecyclerView.Adapter<Borehol
 
     override fun onBindViewHolder(holder: BoreholeViewHolder?, position: Int) {
         holder?.borehole = boreholes[position]
+        holder?.boreholePosition = position
     }
 
 }
 
-class BoreholeViewHolder(val view: View): RecyclerView.ViewHolder(view){
+class BoreholeViewHolder(val view: View, val listener: BoreholeSelectedListener): RecyclerView.ViewHolder(view){
     var borehole: Borehole? = null
-    set(value) {
-        field = value
-        view.findViewById<TextView>(R.id.boreholeId).text = "Скважина №${borehole?.id}"
-    }
 
+
+
+    var boreholePosition: Int = 0
+        set(value) {
+            field = value + 1
+            view.findViewById<TextView>(R.id.boreholeId).text = "Скважина №$field"
+            view.setOnClickListener { listener.onBoreholeSelected(field) }
+        }
+}
+
+interface BoreholeSelectedListener{
+    fun onBoreholeSelected(position: Int)
 }

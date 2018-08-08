@@ -34,7 +34,7 @@ public class DepthsAdapter extends RecyclerView.Adapter<DepthsAdapter.DepthViewH
 
     @Override
     public DepthViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.borehole_depth, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
         return new DepthViewHolder(view);
     }
 
@@ -68,10 +68,10 @@ public class DepthsAdapter extends RecyclerView.Adapter<DepthsAdapter.DepthViewH
 
     static class DepthViewHolder extends ZebraItemViewHolder {
 
-        @BindView(R.id.saved_depth)
+        @BindView(R.id.left_content)
         TextView savedDepth;
 
-        @BindView(R.id.saved_depth_date)
+        @BindView(R.id.right_content)
         TextView savedDepthDate;
 
         BoreholeDepth boreholeDepth;

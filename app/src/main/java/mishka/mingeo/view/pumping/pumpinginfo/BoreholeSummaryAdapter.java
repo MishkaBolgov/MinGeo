@@ -40,7 +40,7 @@ public class BoreholeSummaryAdapter extends RecyclerView.Adapter<BoreholeSummary
 
     @Override
     public BoreholeSummaryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.borehole_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
         return new BoreholeSummaryViewHolder(view);
     }
 
@@ -58,7 +58,7 @@ public class BoreholeSummaryAdapter extends RecyclerView.Adapter<BoreholeSummary
 
     public static class BoreholeSummaryViewHolder extends ZebraItemViewHolder{
 
-        @BindView(R.id.borehole)
+        @BindView(R.id.left_content)
         TextView boreholeName;
 
         private Borehole borehole;
@@ -84,7 +84,7 @@ public class BoreholeSummaryAdapter extends RecyclerView.Adapter<BoreholeSummary
 
         public void setPosition(int position) {
             this.position = position;
-            boreholeName.setText("Скважина №" + position);
+            boreholeName.setText("Скважина " + position);
             setPositionOddityDependingBackground(position);
         }
 

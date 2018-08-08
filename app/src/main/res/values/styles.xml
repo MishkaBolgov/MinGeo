@@ -6,6 +6,10 @@
     </style>
 
     <style name="CardViewStyle">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+
         <item name="cardElevation">@dimen/cardViewElevation</item>
         <item name="cardCornerRadius">@dimen/cardViewCornerRadius</item>
 
@@ -21,8 +25,42 @@
         <item name="contentPaddingRight">@dimen/cardViewHorizontalPadding</item>
     </style>
 
+    <style name="CardText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">@dimen/cardTextHorizontalMargin</item>
+        <item name="android:layout_marginRight">@dimen/cardTextHorizontalMargin</item>
+    </style>
+
+    <style name="CardText.Left">
+        <item name="android:layout_gravity">left</item>
+        <item name="android:layout_alignParentStart">true</item>
+    </style>
+
+    <style name="CardText.Right">
+        <item name="android:layout_gravity">right</item>
+        <item name="android:layout_alignParentEnd">true</item>
+    </style>
 
 
+
+    <style name="LabelStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/label_text_size</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">@dimen/label_margin</item>
+    </style>
+
+    <style name="LabelStyle.Large">
+        <item name="android:textSize">@dimen/large_label_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
 
 
 </resources>

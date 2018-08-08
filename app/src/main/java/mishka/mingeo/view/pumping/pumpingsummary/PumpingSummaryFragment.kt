@@ -41,6 +41,8 @@ class PumpingSummaryFragment : Fragment(), PumpPowerDialog.OnSetPumpPowerListene
         view.rvBoreholesSummary.layoutManager = LinearLayoutManager(activity)
         view.rvBoreholesSummary.adapter = adapter
 
+        adapter.boreholeSelectedListener = activity as BoreholeSelectedListener
+
         val chart = childFragmentManager.findFragmentById(R.id.chartFragment) as SummaryChart
 
         viewModel.boreholes.observe(this, object : Observer<List<Borehole>> {

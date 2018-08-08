@@ -27,8 +27,9 @@ import mishka.mingeo.di.module.PumpingModule;
 import mishka.mingeo.view.BaseActivity;
 import mishka.mingeo.view.BaseActivityKt;
 import mishka.mingeo.view.pumping.pumpinginfo.BoreholeSummaryAdapter;
+import mishka.mingeo.view.pumping.pumpingsummary.BoreholeSelectedListener;
 
-public class PumpingActivity extends BaseActivityKt implements BoreholeSummaryAdapter.BoreholeSummaryViewHolder.OnBoreholeClickListener {
+public class PumpingActivity extends BaseActivityKt implements BoreholeSelectedListener {
 
     @BindView(R.id.borehole_pager)
     ViewPager boreholePager;
@@ -97,8 +98,9 @@ public class PumpingActivity extends BaseActivityKt implements BoreholeSummaryAd
         viewModel.onCreateBoreholeClick();
     }
 
+
     @Override
-    public void onClick(int position) {
+    public void onBoreholeSelected(int position) {
         boreholePager.setCurrentItem(position);
     }
 }
