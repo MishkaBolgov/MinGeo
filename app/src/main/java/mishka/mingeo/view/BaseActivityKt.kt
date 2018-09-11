@@ -14,6 +14,9 @@ abstract class BaseActivityKt: AppCompatActivity(){
         return application.applicationComponent
     }
     fun getActivityComponent(): ActivityComponent{
-        return DaggerActivityComponent.builder().activityModule(ActivityModule(this)).build()
+        return DaggerActivityComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .activityModule(ActivityModule(this))
+                .build()
     }
 }

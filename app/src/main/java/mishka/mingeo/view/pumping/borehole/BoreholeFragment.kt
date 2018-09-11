@@ -1,7 +1,6 @@
 package mishka.mingeo.view.pumping.borehole
 
 
-import android.arch.lifecycle.*
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
@@ -10,7 +9,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import kotlinx.android.synthetic.main.fragment_borehole.*
 import kotlinx.android.synthetic.main.fragment_borehole.view.*
 
@@ -19,19 +17,16 @@ import javax.inject.Inject
 
 import mishka.mingeo.R
 import mishka.mingeo.data.model.Borehole
-import mishka.mingeo.data.model.BoreholeDepth
-import mishka.mingeo.di.component.DaggerBoreholeFragmentComponent
-import mishka.mingeo.di.module.BoreholeModule
 import mishka.mingeo.view.BaseActivityKt
 import mishka.mingeo.view.pumping.borehole.depthchart.DepthChartFragment
 import mishka.mingeo.view.pumping.borehole.depthchart.DepthChartMvpView
 
-class BoreholeFragment : Fragment(), AddDepthDialog.AddDepthDialogListener, DistanceDialog.OnDistanceSetListener {
+class BoreholeFragment : Fragment(), DistanceDialog.OnDistanceSetListener {
 
-    @Inject
+//    @Inject
     lateinit var adapter: DepthsAdapter
 
-    @Inject
+//    @Inject
     lateinit var viewModel: BoreholeViewModel
 
     //    Ужасная хуйня
@@ -49,13 +44,13 @@ class BoreholeFragment : Fragment(), AddDepthDialog.AddDepthDialogListener, Dist
 
         val baseActivity = activity as BaseActivityKt
 
-        val component = DaggerBoreholeFragmentComponent.builder()
-                .applicationComponent(baseActivity.getApplicationComponent())
-                .activityComponent(baseActivity.getActivityComponent())
-                .boreholeModule(BoreholeModule (borehole))
-                .build()
-
-        component.inject(this)
+//        val component = DaggerBoreholeFragmentComponent.builder()
+//                .applicationComponent(baseActivity.getApplicationComponent())
+//                .activityComponent(baseActivity.getActivityComponent())
+//                .boreholeModule(BoreholeModule (borehole))
+//                .build()
+//
+//        component.inject(this)
 
         val layoutManager = LinearLayoutManager(context)
 
@@ -90,25 +85,25 @@ class BoreholeFragment : Fragment(), AddDepthDialog.AddDepthDialogListener, Dist
 
 
     override fun onDistanceSet(distance: Int) {
-        viewModel.updateDistance(distance)
+//        viewModel.updateDistance(distance)
     }
 
     fun onAddDepthClick()
     {
-        setCurrentBoreholeAsCurrent()
-        val addDepthDialog = AddDepthDialog()
-        addDepthDialog.setListener(this)
-        addDepthDialog.show(activity.fragmentManager, "add_depth")
-        btnAddDepth.visibility = View.GONE
+//        setCurrentBoreholeAsCurrent()
+//        val addDepthDialog = CreateDepthDialog()
+////        addDepthDialog.setListener(this)
+//        addDepthDialog.show(activity.fragmentManager, "add_depth")
+//        btnAddDepth.visibility = View.GONE
 
     }
 
-    override fun onDepthSet(depth: Float)
-    {
-        setCurrentBoreholeAsCurrent()
-        viewModel.onNewDepthValueSet(depth)
-        btnAddDepth.visibility = View.VISIBLE
-    }
+//    override fun onDepthSet(depth: Float)
+//    {
+//        setCurrentBoreholeAsCurrent()
+////        viewModel.onNewDepthValueSet(depth)
+//        btnAddDepth.visibility = View.VISIBLE
+//    }
 
     /*
     Вот эта хуйня с установкой текущей скважины в ViewModel - просто пиздец
@@ -121,17 +116,17 @@ class BoreholeFragment : Fragment(), AddDepthDialog.AddDepthDialogListener, Dist
     }
 
     fun setCurrentBoreholeAsCurrent() {
-        viewModel.borehole = borehole
-        viewModel.getDepths(borehole).removeObservers(this)
-        viewModel.getDepths(borehole).observe(this, object: Observer<List<BoreholeDepth>> {
-            override fun onChanged(depths: List<BoreholeDepth>?) {
-                adapter.updateBoreholeDepths(depths)
-                depthChartFragment.update(depths)
-
-                if(depths?.size?:0 > 0)
-                    showChart()
-            }
-        })
+//        viewModel.borehole = borehole
+//        viewModel.getDepths(borehole).removeObservers(this)
+//        viewModel.getDepths(borehole).observe(this, object: Observer<List<BoreholeDepth>> {
+//            override fun onChanged(depths: List<BoreholeDepth>?) {
+//                adapter.updateBoreholeDepths(depths)
+//                depthChartFragment.update(depths)
+//
+//                if(depths?.size?:0 > 0)
+//                    showChart()
+//            }
+//        })
     }
 
     private fun showChart() {

@@ -39,7 +39,7 @@ class DepthChartFragment: Fragment(), DepthChartMvpView {
         val originDepth = depths.first().depth
 
         for (depth in depths.iterator())
-            entries.add(Entry(depth.minutes, depth.relativeDepth(originDepth)))
+            entries.add(Entry(depth.days, depth.relativeDepth(originDepth)))
 
 
         val lineDataSet = LineDataSet(entries, "Глубина/Время")

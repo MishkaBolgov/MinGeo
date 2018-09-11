@@ -56,7 +56,7 @@ class SummaryChart : Fragment() {
         val entries = ArrayList<Entry>()
 
         for (depth in chartData[borehole]!!.iterator())
-            entries.add(Entry(depth.minutes, depth.depth.toFloat()))
+            entries.add(Entry(depth.days, depth.depth.toFloat()))
 
         val lineDataSet = LineDataSet(entries, "Глубина/Время")
         lineDataSet.lineWidth = 4f

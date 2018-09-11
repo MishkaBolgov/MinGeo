@@ -3,4 +3,7 @@
     <item
         android:id="@+id/delete_db"
         android:title="Delete database"/>
+    <item
+        android:id="@+id/send"
+        android:title="Send data"/>
 </menu>

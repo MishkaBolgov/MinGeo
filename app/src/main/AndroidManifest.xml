@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mishka.mingeo">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
     <application
         android:name=".MinGeoApplication"
         android:allowBackup="true"
@@ -18,7 +22,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.pumping.PumpingActivity" />
-
+        <activity android:name=".view.pumping.borehole.BoreholeActivity"></activity>
+        <provider
+            android:authorities="mingeo.provider"
+            android:name=".view.pumpinglist.MyFileProvider"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
     </application>
 
 </manifest>

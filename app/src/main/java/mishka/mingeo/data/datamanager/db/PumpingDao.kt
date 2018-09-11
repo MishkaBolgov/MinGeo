@@ -16,8 +16,6 @@ interface PumpingDao {
     @get:Query("SELECT * FROM pumping")
     val allPumpings: LiveData<List<Pumping>>
 
-    @Insert
-    fun addPumping(pumping: Pumping): Long
 
     @Query("SELECT * FROM pumping WHERE id=:id")
     fun getPumpingById(id: Int): Pumping
@@ -27,5 +25,14 @@ interface PumpingDao {
 
     @Query("SELECT * FROM pumping WHERE id=:id")
     fun getLivePumpingById(id: Int): LiveData<Pumping>
+
+
+
+//    Refactored
+    @Query("SELECT * FROM pumping")
+    fun all(): LiveData<List<Pumping>>
+
+    @Insert
+    fun insertPumping(pumping: Pumping): Long
 
 }

@@ -7,8 +7,6 @@ import dagger.Module
 import dagger.Provides
 import mishka.mingeo.data.datamanager.DataManager
 import mishka.mingeo.data.datamanager.SimpleDataManager
-import mishka.mingeo.data.datamanager.asyncdboperation.AsyncDbOperationManager
-import mishka.mingeo.data.datamanager.asyncdboperation.SimpleAsyncDbOperationManager
 import mishka.mingeo.data.datamanager.db.*
 import mishka.mingeo.di.ApplicationContext
 import mishka.mingeo.di.DatabaseName
@@ -22,15 +20,15 @@ class ApplicationModule(val application: Application) {
         return application
     }
 
-
     @Provides
+    @Singleton
     internal fun provideDataManager(dataManager: SimpleDataManager): DataManager {
         return dataManager
     }
 
     @Provides
     fun provideAppDatabase(@ApplicationContext context: Context, @DatabaseName databaseName: String): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, databaseName).build()
+        return Room.databaseBuilder(context, AppDatabase::class.java, databaseName).allowMainThreadQueries().build()
     }
 
 
@@ -50,6 +48,11 @@ class ApplicationModule(val application: Application) {
     }
 
     @Provides
+    internal fun provideNoteDao(database: AppDatabase): NoteDao {
+        return database.noteDao()
+    }
+
+    @Provides
     @DatabaseName
     internal fun provideDatabaseName(): String {
         return "database"
@@ -58,11 +61,6 @@ class ApplicationModule(val application: Application) {
     @Provides
     internal fun provideDatabaseHelper(databaseHelper: SimpleDatabaseHelper): DatabaseHelper {
         return databaseHelper
-    }
-
-    @Provides
-    internal fun provideAsyncDbOperationManager(asyncDbOperationManager: SimpleAsyncDbOperationManager): AsyncDbOperationManager {
-        return asyncDbOperationManager
     }
 
 }

@@ -4,46 +4,36 @@ import android.arch.lifecycle.LiveData
 
 import mishka.mingeo.data.model.Borehole
 import mishka.mingeo.data.model.BoreholeDepth
+import mishka.mingeo.data.model.Note
 import mishka.mingeo.data.model.Pumping
+import java.io.File
 
 interface DataManager {
 
     val pumpings: LiveData<List<Pumping>>
 
-
-    fun updateBoreholeDepth(boreholeDepth: BoreholeDepth, listener: OnDbOperationFinishedListener)
-
-    fun fetchBoreholesForPumping(pumping: Pumping, listener: OnItemsFetchedListener<*>)
-    fun fetchAllPumpings(listener: OnPumpingFetchedListener)
-    fun fetchBoreholeDepthsForBorehole(borehole: Borehole, listener: OnItemsFetchedListener<*>)
+    fun createPumping(): Long
+    fun createBorehole(pumping: Pumping): Borehole
 
 
-    fun createPumping()
-    fun createBorehole(pumping: Pumping)
+    fun getLiveBoreholesForPumping(pumping: Pumping): LiveData<List<Borehole>>
+    fun getBoreholesForPumping(pumping: Pumping): List<Borehole>
 
 
-    fun getBoreholesForPumping(pumping: Pumping): LiveData<List<Borehole>>
+
     fun getBoreholeDepthsForBorehole(borehole: Borehole): LiveData<List<BoreholeDepth>>
-    fun addBoreholeDepth(boreholeDepth: BoreholeDepth)
+    fun createBoreholeDepth(borehole: Borehole, depth: Float)
     fun getPumpingById(id: Int): LiveData<Pumping>
 
     fun setPumpPowerForPumping(pumping: Pumping, power: Float)
     fun setDistanceForBorehole(borehole: Borehole, distance: Int)
+    fun getLiveBoreholeDepths(borehole: Borehole): LiveData<List<BoreholeDepth>>
+    fun getBoreholeDepths(borehole: Borehole): List<BoreholeDepth>
+    fun getDepthsForPumping(pumping: Pumping): List<List<BoreholeDepth>>
 
-    interface OnPumpingFetchedListener {
-        fun onAllPumpingsFetched(pumpings: List<Pumping>)
-    }
+    fun getAllPumpings(): List<Pumping>
 
-    interface OnItemsFetchedListener<T> {
-        fun onItemsFetched(items: List<T>)
-    }
-
-    interface OnItemAddedListener<T> {
-        fun onItemCreated(addedItem: T)
-    }
-
-    interface OnDbOperationFinishedListener {
-        fun onBoreholeDepthUpdated()
-    }
+    fun createNote(file: File, pumping: Pumping)
+    fun getNotesLive(pumping: Pumping): LiveData<List<Note>>
 
 }

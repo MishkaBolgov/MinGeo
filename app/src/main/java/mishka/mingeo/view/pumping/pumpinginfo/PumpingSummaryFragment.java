@@ -13,9 +13,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import mishka.mingeo.R;
 import mishka.mingeo.data.model.Borehole;
 import mishka.mingeo.data.model.Pumping;

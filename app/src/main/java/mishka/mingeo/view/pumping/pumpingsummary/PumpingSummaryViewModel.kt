@@ -1,7 +1,6 @@
 package mishka.mingeo.view.pumping.pumpingsummary
 
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Observer
 import mishka.mingeo.data.datamanager.DataManager
 import mishka.mingeo.data.model.Borehole
 import mishka.mingeo.data.model.BoreholeDepth
@@ -10,7 +9,7 @@ import javax.inject.Inject
 
 class PumpingSummaryViewModel @Inject constructor(val dataManager: DataManager, val pumping: Pumping) {
 
-    val boreholes: LiveData<List<Borehole>> = dataManager.getBoreholesForPumping(pumping)
+    val boreholes: LiveData<List<Borehole>> = dataManager.getLiveBoreholesForPumping(pumping)
 
 
     fun updatePumpPower(power: Float) {

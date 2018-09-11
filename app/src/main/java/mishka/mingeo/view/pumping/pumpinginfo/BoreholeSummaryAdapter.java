@@ -12,9 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import mishka.mingeo.R;
 import mishka.mingeo.data.model.Borehole;
 import mishka.mingeo.view.ZebraItemViewHolder;
@@ -58,7 +55,6 @@ public class BoreholeSummaryAdapter extends RecyclerView.Adapter<BoreholeSummary
 
     public static class BoreholeSummaryViewHolder extends ZebraItemViewHolder{
 
-        @BindView(R.id.left_content)
         TextView boreholeName;
 
         private Borehole borehole;
@@ -69,7 +65,6 @@ public class BoreholeSummaryAdapter extends RecyclerView.Adapter<BoreholeSummary
 
         public BoreholeSummaryViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

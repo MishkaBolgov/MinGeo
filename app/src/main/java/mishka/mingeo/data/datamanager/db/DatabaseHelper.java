@@ -1,10 +1,11 @@
 package mishka.mingeo.data.datamanager.db;
 
+import android.arch.lifecycle.LiveData;
+
 import java.util.List;
 
 import mishka.mingeo.data.model.Borehole;
 import mishka.mingeo.data.model.BoreholeDepth;
-import mishka.mingeo.data.model.DatabaseEntity;
 import mishka.mingeo.data.model.Pumping;
 
 public interface DatabaseHelper {
@@ -23,5 +24,5 @@ public interface DatabaseHelper {
 
     void updateBoreholeDepth(BoreholeDepth updatedBoreholeDepth);
 
-    List<BoreholeDepth> getBoreholeDepthsForBorehole(Borehole ownerEntity);
+    LiveData<List<BoreholeDepth>> getBoreholeDepthsForBorehole(Borehole ownerEntity);
 }

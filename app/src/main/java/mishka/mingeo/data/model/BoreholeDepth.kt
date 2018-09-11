@@ -2,13 +2,14 @@ package mishka.mingeo.data.model
 
 
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
 import android.arch.persistence.room.TypeConverters
 import org.joda.time.DateTime
 
 import org.joda.time.Instant
+import org.joda.time.LocalDateTime
 import org.joda.time.format.DateTimeFormat
-import java.time.format.DateTimeFormatter
 
 @Entity
 @TypeConverters(DateConverter::class)
@@ -21,16 +22,35 @@ class BoreholeDepth : DatabaseEntity {
 
     var boreholeId: Int = 0
 
-
     var date: Instant? = null
 
-    val minutes: Float
-        get() = date!!.toDateTime().secondOfDay.toFloat()
 
-    val monthDayDate: String
-        get() = date!!.toDateTime().toString("dd/mm")
+    @Ignore
+    val HOURS_IN_DAY = 24
+    @Ignore
+    val MINUTES_IN_HOUR = 60
+    @Ignore
+    val SECONDS_IN_MINUTE = 60
+    @Ignore
+    val SECONDS_IN_DAY = HOURS_IN_DAY * MINUTES_IN_HOUR * SECONDS_IN_MINUTE.toFloat()
 
-    fun getFormatDate(): String{
+    val days: Float
+        get() {
+            val dateTime = LocalDateTime(date)
+            val secondsOfDay: Float = dateTime.hourOfDay.hoursToSeconds() + dateTime.minuteOfHour.minutesToSeconds() + dateTime.secondOfMinute
+
+            return dateTime.dayOfYear + (secondsOfDay / SECONDS_IN_DAY)
+        }
+
+    private fun Int.hoursToSeconds(): Float {
+        return this * MINUTES_IN_HOUR * SECONDS_IN_MINUTE.toFloat()
+    }
+
+    private fun Int.minutesToSeconds(): Float {
+        return this * SECONDS_IN_MINUTE.toFloat()
+    }
+
+    fun getFormatDate(): String {
         val dateTime = DateTime(date)
         val formatter = DateTimeFormat.forPattern("HH:mm | dd.MM.yy")
 //        return "${dateTime.hourOfDay}:${dateTime.minuteOfHour} | ${dateTime.dayOfMonth().asText}.${dateTime.monthOfYear().asText}"

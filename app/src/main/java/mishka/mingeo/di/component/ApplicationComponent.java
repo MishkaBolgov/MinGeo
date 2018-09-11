@@ -8,6 +8,7 @@ import mishka.mingeo.data.datamanager.DataManager;
 import mishka.mingeo.di.module.ApplicationModule;
 
 @Component(modules = ApplicationModule.class)
+@Singleton
 public interface ApplicationComponent {
     void inject(MinGeoApplication application);
     DataManager getDataManager();

@@ -17,8 +17,6 @@ import java.util.Random;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import mishka.mingeo.R;
 import mishka.mingeo.data.model.Borehole;
 import mishka.mingeo.data.model.BoreholeDepth;
@@ -68,17 +66,14 @@ public class DepthsAdapter extends RecyclerView.Adapter<DepthsAdapter.DepthViewH
 
     static class DepthViewHolder extends ZebraItemViewHolder {
 
-        @BindView(R.id.left_content)
         TextView savedDepth;
 
-        @BindView(R.id.right_content)
         TextView savedDepthDate;
 
         BoreholeDepth boreholeDepth;
 
         public DepthViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
         }
 
         public void setBoreholeDepth(BoreholeDepth boreholeDepth) {

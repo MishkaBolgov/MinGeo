@@ -5,16 +5,19 @@ import android.os.AsyncTask;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import mishka.mingeo.data.datamanager.asyncdboperation.AsyncDbOperationManager;
 import mishka.mingeo.data.datamanager.db.BoreholeDao;
 import mishka.mingeo.data.datamanager.db.BoreholeDepthDao;
+import mishka.mingeo.data.datamanager.db.NoteDao;
 import mishka.mingeo.data.datamanager.db.PumpingDao;
 import mishka.mingeo.data.model.Borehole;
 import mishka.mingeo.data.model.BoreholeDepth;
+import mishka.mingeo.data.model.Note;
 import mishka.mingeo.data.model.Pumping;
 import mishka.mingeo.data.datamanager.db.DatabaseHelper;
 
@@ -23,58 +26,37 @@ public class SimpleDataManager implements DataManager {
     private PumpingDao pumpingDao;
     private BoreholeDao boreholeDao;
     private BoreholeDepthDao boreholeDepthDao;
-    private AsyncDbOperationManager asyncDbOperationManager;
+    private NoteDao noteDao;
 
     @Inject
-    public SimpleDataManager(DatabaseHelper dbHelper, AsyncDbOperationManager asyncDbOperationManager, PumpingDao pumpingDao, BoreholeDao boreholeDao, BoreholeDepthDao boreholeDepthDao) {
+    public SimpleDataManager(DatabaseHelper dbHelper, PumpingDao pumpingDao, BoreholeDao boreholeDao, BoreholeDepthDao boreholeDepthDao, NoteDao noteDao) {
         this.dbHelper = dbHelper;
-        this.asyncDbOperationManager = asyncDbOperationManager;
         this.pumpingDao = pumpingDao;
         this.boreholeDao = boreholeDao;
         this.boreholeDepthDao = boreholeDepthDao;
-    }
+        this.noteDao = noteDao;
 
-    @Override
-    public void fetchBoreholesForPumping(Pumping pumping, OnItemsFetchedListener listener) {
-        asyncDbOperationManager.fetchBoreholesForPumping(pumping, listener);
-    }
-
-    @Override
-    public void fetchBoreholeDepthsForBorehole(Borehole borehole, OnItemsFetchedListener listener) {
-        asyncDbOperationManager.fetchDepthsForBorehole(borehole, listener);
     }
 
     @Override
     public LiveData<List<Pumping>> getPumpings() {
-        return pumpingDao.getAllPumpings();
+        return pumpingDao.all();
     }
 
     @Override
-    public void createPumping() {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                pumpingDao.addPumping(new Pumping());
-                return null;
-            }
-        }.execute();
+    public long createPumping() {
+        return pumpingDao.insertPumping(new Pumping());
     }
 
     @Override
-    public void createBorehole(final Pumping pumping) {
-        new AsyncTask<Void, Void, Void>() {
-
-            @Override
-            protected Void doInBackground(Void... voids) {
-                boreholeDao.addBorehole(new Borehole(pumping));
-                return null;
-            }
-        }.execute();
+    public Borehole createBorehole(final Pumping pumping) {
+        Long id = boreholeDao.createBorehole(new Borehole(pumping));
+        return boreholeDao.getBoreholeById(id);
     }
 
 
     @Override
-    public LiveData<List<Borehole>> getBoreholesForPumping(Pumping pumping) {
+    public LiveData<List<Borehole>> getLiveBoreholesForPumping(Pumping pumping) {
         return boreholeDao.getLiveBoreholesForPumping(pumping.getId());
     }
 
@@ -84,38 +66,15 @@ public class SimpleDataManager implements DataManager {
     }
 
     @Override
-    public void addBoreholeDepth(final BoreholeDepth boreholeDepth) {
-        new AsyncTask<Void, Void, Void>() {
-
-            @Override
-            protected Void doInBackground(Void... voids) {
-                boreholeDepthDao.addBoreholeDepth(boreholeDepth);
-                return null;
-            }
-        }.execute();
+    public void createBoreholeDepth(Borehole borehole, float depth) {
+        boreholeDepthDao.addBoreholeDepth(new BoreholeDepth(borehole, depth));
     }
 
-    @Override
-    public void fetchAllPumpings(OnPumpingFetchedListener listener) {
-        new FetchPumpingsAsyncTask(dbHelper, listener).execute();
-    }
-
-
-    @Override
-    public void updateBoreholeDepth(BoreholeDepth boreholeDepth, OnDbOperationFinishedListener listener) {
-        asyncDbOperationManager.updateBoreholeDepth(boreholeDepth, listener);
-    }
 
     @Override
     public void setPumpPowerForPumping(final Pumping pumping, final float power) {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                System.out.println("update power: " + pumping.getPumpPower() + " -> " + power);
-                pumpingDao.updatePumpPowerForPumping(pumping.getId(), power);
-                return null;
-            }
-        }.execute();
+        pumpingDao.updatePumpPowerForPumping(pumping.getId(), power);
+
     }
 
     @NotNull
@@ -126,7 +85,7 @@ public class SimpleDataManager implements DataManager {
 
     @Override
     public void setDistanceForBorehole(@NotNull final Borehole borehole, final int distance) {
-        new AsyncTask<Void, Void, Void>(){
+        new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 boreholeDao.updateDistance(borehole.getId(), distance);
@@ -135,27 +94,53 @@ public class SimpleDataManager implements DataManager {
         }.execute();
     }
 
-    private static class FetchPumpingsAsyncTask extends AsyncTask<Void, Void, List<Pumping>> {
-
-        private DatabaseHelper databaseHelper;
-        private OnPumpingFetchedListener listener;
-
-        public FetchPumpingsAsyncTask(DatabaseHelper databaseHelper, OnPumpingFetchedListener listener) {
-            this.databaseHelper = databaseHelper;
-            this.listener = listener;
-        }
-
-
-        @Override
-        protected List<Pumping> doInBackground(Void... voids) {
-            return databaseHelper.getAllPumpings();
-        }
-
-        @Override
-        protected void onPostExecute(List<Pumping> pumpings) {
-            super.onPostExecute(pumpings);
-            listener.onAllPumpingsFetched(pumpings);
-        }
+    @NotNull
+    @Override
+    public LiveData<List<BoreholeDepth>> getLiveBoreholeDepths(@NotNull Borehole borehole) {
+        return boreholeDepthDao.getLiveDepthsForBorehole(borehole.id);
     }
 
+    @NotNull
+    @Override
+    public List<Borehole> getBoreholesForPumping(@NotNull Pumping pumping) {
+        return boreholeDao.getBoreholesForPumping(pumping.getId());
+    }
+
+    @NotNull
+    @Override
+    public List<BoreholeDepth> getBoreholeDepths(@NotNull Borehole borehole) {
+        return boreholeDepthDao.getDepthsForBorehole(borehole.id);
+    }
+
+    @NotNull
+    @Override
+    public List<List<BoreholeDepth>> getDepthsForPumping(@NotNull Pumping pumping) {
+        List<List<BoreholeDepth>> all = new ArrayList<>();
+
+        List<Borehole> boreholes = boreholeDao.getBoreholesForPumping(pumping.getId());
+        for (Borehole borehole : boreholes) {
+            all.add(boreholeDepthDao.getRawDepthsForBorehole(borehole.id));
+        }
+
+        return all;
+    }
+
+    @NotNull
+    @Override
+    public List<Pumping> getAllPumpings() {
+        return pumpingDao.getAll();
+    }
+
+
+    @Override
+    public void createNote( File file, Pumping pumping) {
+        noteDao.insert(new Note(file.getPath(), pumping));
+    }
+
+    @NotNull
+    @Override
+    public LiveData<List<Note>> getNotesLive(Pumping pumping) {
+//        return noteDao.getAllLive(pumping.getId());
+        return noteDao.getAllLive();
+    }
 }

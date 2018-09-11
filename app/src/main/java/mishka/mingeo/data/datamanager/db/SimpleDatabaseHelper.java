@@ -1,6 +1,6 @@
 package mishka.mingeo.data.datamanager.db;
 
-import com.google.gson.Gson;
+import android.arch.lifecycle.LiveData;
 
 import java.util.List;
 
@@ -21,12 +21,12 @@ public class SimpleDatabaseHelper implements DatabaseHelper {
 
     @Override
     public int addPumping(Pumping pumping) {
-        return (int) database.pumpingDao().addPumping(pumping);
+        return (int) database.pumpingDao().insertPumping(pumping);
     }
 
     @Override
     public int addBorehole(Borehole borehole) {
-        return (int) database.boreholeDao().addBorehole(borehole);
+        return (int) database.boreholeDao().createBorehole(borehole);
     }
 
     @Override
@@ -40,8 +40,8 @@ public class SimpleDatabaseHelper implements DatabaseHelper {
     }
 
     @Override
-    public List<BoreholeDepth> getBoreholeDepthsForBorehole(Borehole borehole) {
-        return database.boreholeDepthDao().getDepthsForBorehole(borehole.getId());
+    public LiveData<List<BoreholeDepth>> getBoreholeDepthsForBorehole(Borehole borehole) {
+        return database.boreholeDepthDao().getLiveDepthsForBorehole(borehole.getId());
     }
 
 

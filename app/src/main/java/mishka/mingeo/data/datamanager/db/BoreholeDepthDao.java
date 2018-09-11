@@ -28,7 +28,9 @@ public interface BoreholeDepthDao {
     @Query("SELECT * FROM boreholedepth")
     List<BoreholeDepth> getAll();
 
-
     @Query("SELECT * FROM boreholedepth WHERE boreholeId=:id")
     LiveData<List<BoreholeDepth>> getLiveDepthsForBorehole(int id);
+
+    @Query("SELECT * FROM boreholedepth WHERE boreholeId=:id")
+    List<BoreholeDepth> getRawDepthsForBorehole(int id);
 }

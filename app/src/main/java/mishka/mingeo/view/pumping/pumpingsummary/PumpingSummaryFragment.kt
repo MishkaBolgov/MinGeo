@@ -13,7 +13,6 @@ import mishka.mingeo.R
 import mishka.mingeo.data.model.Borehole
 import mishka.mingeo.data.model.BoreholeDepth
 import mishka.mingeo.data.model.Pumping
-import mishka.mingeo.di.component.DaggerPumpingSummaryComponent
 import mishka.mingeo.di.module.PumpingSummaryModule
 import mishka.mingeo.view.BaseActivityKt
 
@@ -34,14 +33,13 @@ class PumpingSummaryFragment : Fragment(), PumpPowerDialog.OnSetPumpPowerListene
 
         val pumping = arguments.getSerializable("pumping") as Pumping
 
-        val component = DaggerPumpingSummaryComponent.builder().applicationComponent((activity as BaseActivityKt).getApplicationComponent()).pumpingSummaryModule(PumpingSummaryModule(pumping)).build()
-        component.inject(this)
+//        val component = DaggerPumpingSummaryComponent.builder().applicationComponent((activity as BaseActivityKt).getApplicationComponent()).pumpingSummaryModule(PumpingSummaryModule(pumping)).build()
+//        component.inject(this)
 
 
         view.rvBoreholesSummary.layoutManager = LinearLayoutManager(activity)
         view.rvBoreholesSummary.adapter = adapter
 
-        adapter.boreholeSelectedListener = activity as BoreholeSelectedListener
 
         val chart = childFragmentManager.findFragmentById(R.id.chartFragment) as SummaryChart
 
@@ -65,8 +63,6 @@ class PumpingSummaryFragment : Fragment(), PumpPowerDialog.OnSetPumpPowerListene
 
             }
         })
-
-        println("pump power = " + pumping.pumpPower)
 
         viewModel.getPumping().observe(this, object : Observer<Pumping> {
             override fun onChanged(pumping: Pumping?) {

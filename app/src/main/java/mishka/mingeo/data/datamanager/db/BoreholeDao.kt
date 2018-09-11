@@ -11,13 +11,13 @@ import mishka.mingeo.data.model.Borehole
 interface BoreholeDao {
 
     @Insert
-    fun addBorehole(borehole: Borehole): Long
+    fun createBorehole(borehole: Borehole): Long
 
     @Query("SELECT * FROM borehole WHERE pumpingId=:pumpingId")
     fun getBoreholesForPumping(pumpingId: Int): List<Borehole>
 
     @Query("SELECT * FROM borehole WHERE id=:id")
-    fun getBoreholeById(id: Int): Borehole
+    fun getBoreholeById(id: Long): Borehole
 
 
     @Query("SELECT * FROM borehole WHERE pumpingId=:pumpingId")
