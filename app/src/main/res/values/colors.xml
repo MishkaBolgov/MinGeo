@@ -9,11 +9,13 @@
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#000000</color>
 
-    <color name="notesFragmentBackground">#e6e5e5</color>
-
+    <color name="white">#ffffff</color>
 
     <color name="plotLineColor1">#a0aaff</color>
     <color name="plotLineColor2">#3246ff</color>
     <color name="plotLineColor3">#292f60</color>
+    <color name="plotLineColor4">#237fbc</color>
+    <color name="plotLineColor5">#73b7df</color>
+    <color name="plotLineColor6">#161938</color>
 
 </resources>

@@ -64,7 +64,10 @@ class PlotViewFragment : Fragment(), PlotView {
         return when (index) {
             0 -> context.resources.getColor(R.color.plotLineColor1)
             1 -> context.resources.getColor(R.color.plotLineColor2)
-            else -> context.resources.getColor(R.color.plotLineColor3)
+            2 -> context.resources.getColor(R.color.plotLineColor3)
+            3 -> context.resources.getColor(R.color.plotLineColor4)
+            4 -> context.resources.getColor(R.color.plotLineColor5)
+            else -> context.resources.getColor(R.color.plotLineColor6)
         }
     }
 

@@ -14,11 +14,18 @@
         android:name="mishka.mingeo.view.plot.PlotViewFragment"
         style="@style/CardViewStyle"/>
 
+
+    <TextView
+        android:id="@+id/depthsLabel"
+        style="@style/LabelStyle"
+        android:text="Замеры"
+        android:layout_below="@+id/chartContainer"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvDepths"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/chartContainer"/>
+        android:layout_below="@id/depthsLabel"/>
 
     <include layout="@layout/floating_button" />
 

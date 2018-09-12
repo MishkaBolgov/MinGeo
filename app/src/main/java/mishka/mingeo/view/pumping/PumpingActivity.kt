@@ -5,12 +5,15 @@ import android.content.Intent
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 
@@ -35,6 +38,7 @@ import mishka.mingeo.view.dialog.SetPumpPowerDialog
 import mishka.mingeo.view.dialog.SetValueDialog
 import mishka.mingeo.view.plot.PlotView
 import mishka.mingeo.view.pumping.borehole.BoreholeActivity
+import mishka.mingeo.view.pumping.note.NotesFragment
 import mishka.mingeo.view.pumping.pumpinginfo.BoreholeSummaryAdapter
 import java.io.File
 
@@ -47,6 +51,8 @@ class PumpingActivity : BaseActivityKt() {
     lateinit var boreholeAdapter: BoreholeAdapter
 
     lateinit var component: PumpingActivityComponent
+
+    private lateinit var notesFragment: NotesFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +87,8 @@ class PumpingActivity : BaseActivityKt() {
         pumpPower.propertyName.text = "Мощность насоса"
         pumpPower.propertyValue.setOnClickListener { showSetPumpPowerDialog() }
 
-
+        notesFragment = supportFragmentManager.findFragmentById(R.id.notesFragment) as NotesFragment
+        hideNotes()
     }
 
     override fun onResume() {
@@ -97,6 +104,34 @@ class PumpingActivity : BaseActivityKt() {
             }
         }
         addDepthDialog.show(fragmentManager, "set_pump_power")
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.pumping_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+
+    private var isNotesVisible = false
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.showNotes -> {
+                if(isNotesVisible)
+                    hideNotes()
+                else showNotes()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun hideNotes() {
+        supportFragmentManager.beginTransaction().hide(notesFragment).commit()
+        isNotesVisible = false
+    }
+
+    private fun showNotes() {
+        supportFragmentManager.beginTransaction().show(notesFragment).commit()
+        isNotesVisible = true
     }
 
     private fun onCreateBoreholeClick() {

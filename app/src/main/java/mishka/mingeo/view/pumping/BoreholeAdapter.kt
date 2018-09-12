@@ -12,13 +12,12 @@ import mishka.mingeo.view.pumping.borehole.BoreholeActivity
 
 import javax.inject.Inject
 
-class BoreholeAdapter @Inject constructor(): RecyclerView.Adapter<BoreholeAdapter.BoreholeView>() {
+class BoreholeAdapter @Inject constructor() : RecyclerView.Adapter<BoreholeAdapter.BoreholeView>() {
     var boreholes: List<Borehole> = ArrayList()
-    set(value) {
-        field = value
-        notifyDataSetChanged()
-    }
-
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoreholeView {
@@ -32,19 +31,25 @@ class BoreholeAdapter @Inject constructor(): RecyclerView.Adapter<BoreholeAdapte
 
     override fun onBindViewHolder(holder: BoreholeView, position: Int) {
         holder.borehole = boreholes[position]
+        holder.setText(position)
     }
 
-    class BoreholeView(view: View): RecyclerView.ViewHolder(view) {
+    class BoreholeView(view: View) : RecyclerView.ViewHolder(view) {
         var borehole: Borehole? = null
-        set(value) {
-            field = value
-            itemView.leftContent.text = value?.id.toString()
-            itemView.setOnClickListener {
-                var context = itemView.context
-                var intent = Intent(context, BoreholeActivity::class.java)
-                intent.putExtra("borehole", value)
-                context.startActivity(intent)
+            set(value) {
+                field = value
+                itemView.setOnClickListener {
+                    var context = itemView.context
+                    var intent = Intent(context, BoreholeActivity::class.java)
+                    intent.putExtra("borehole", value)
+                    context.startActivity(intent)
+                }
             }
+
+        fun setText(position: Int) {
+            itemView.leftContent.text = "Скважина ${position + 1}"
         }
+
+
     }
 }

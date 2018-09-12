@@ -18,6 +18,7 @@ import mishka.mingeo.R
 import mishka.mingeo.data.model.Note
 import mishka.mingeo.data.model.Pumping
 import mishka.mingeo.di.module.NotesFragmentModule
+import mishka.mingeo.utils.PermissionUtils
 import mishka.mingeo.view.pumping.PumpingActivity
 import java.io.File
 import javax.inject.Inject
@@ -39,13 +40,14 @@ class NotesFragment : Fragment() {
 
 
         view.btnRecord.setOnTouchListener { view, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> onBtnRecordDown()
-                MotionEvent.ACTION_UP -> onBtnRecordUp()
-            }
+            if (PermissionUtils.isAudioPermissionGranted(activity))
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> onBtnRecordDown()
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> onBtnRecordUp()
+                }
+            else PermissionUtils.requestAudioPermission(activity)
             true
         }
-
 
         return view
     }
@@ -62,17 +64,22 @@ class NotesFragment : Fragment() {
         rvNotes.adapter = adapter
 
         viewModel.notes.observe(this, Observer {
-            Toast.makeText(activity, "fr notes: ${it?.size}", LENGTH_LONG).show()
             adapter.notes = it ?: ArrayList()
         })
     }
 
     private fun onBtnRecordDown() {
         recorder.startRecording()
+        view?.let {
+            it.pbRecordingIndicator.visibility = View.VISIBLE
+        }
     }
 
     private fun onBtnRecordUp() {
         recorder.stopRecording()
+        view?.let {
+            it.pbRecordingIndicator.visibility = View.INVISIBLE
+        }
     }
 
 }

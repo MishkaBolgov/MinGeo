@@ -34,7 +34,7 @@ class DepthAdapter @Inject constructor(): RecyclerView.Adapter<DepthAdapter.Dept
         set(value) {
             field = value
             itemView.leftContent.text = "${field?.depth}"
-            itemView.rightContent.text = "${field?.days}"
+            itemView.rightContent.text = "${field?.getFormatDate()}"
         }
     }
 }

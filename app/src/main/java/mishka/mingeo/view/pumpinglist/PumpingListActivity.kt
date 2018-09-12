@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 import mishka.mingeo.R
 import mishka.mingeo.data.model.Pumping
 import mishka.mingeo.di.component.DaggerPumpingListActivityComponent
+import mishka.mingeo.utils.PermissionUtils
 import mishka.mingeo.view.BaseActivityKt
 import mishka.mingeo.view.pumping.PumpingActivity
 import java.io.File
@@ -55,6 +56,9 @@ class PumpingListActivity : BaseActivityKt() {
             val createdPumpingId = viewModel.onCreatePumpingClick()
         }
 
+        if (PermissionUtils.isStoragePermissionDenied(this))
+            PermissionUtils.requestStoragePermission(this)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -74,8 +78,12 @@ class PumpingListActivity : BaseActivityKt() {
     }
 
     fun onPumpingSelected(pumping: Pumping) {
-        val intent = Intent(this, PumpingActivity::class.java)
-        intent.putExtra("pumping", pumping)
-        startActivity(intent)
+
+        if (PermissionUtils.isStoragePermissionGranted(this)) {
+            val intent = Intent(this, PumpingActivity::class.java)
+            intent.putExtra("pumping", pumping)
+            startActivity(intent)
+        } else PermissionUtils.requestStoragePermission(this)
+
     }
 }

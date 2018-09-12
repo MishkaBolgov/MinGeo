@@ -140,7 +140,7 @@ public class SimpleDataManager implements DataManager {
     @NotNull
     @Override
     public LiveData<List<Note>> getNotesLive(Pumping pumping) {
-//        return noteDao.getAllLive(pumping.getId());
-        return noteDao.getAllLive();
+        return noteDao.getAllLive(pumping.getId());
+//        return noteDao.getAllLive();
     }
 }
