@@ -8,15 +8,17 @@ import mishka.mingeo.data.model.Note
 
 @Dao
 interface NoteDao {
-    @Insert
-    fun insert(note: Note)
-
     @Query("SELECT * FROM note")
     fun getAll(): List<Note>
 
-    @Query("SELECT * FROM note WHERE pumpingId=:pumpingId")
-    fun getAllLive(pumpingId: Long): LiveData<List<Note>>
+    @Insert
+    fun insert(note: Note)
 
+//    Async
     @Query("SELECT * FROM note")
-    fun getAllLive(): LiveData<List<Note>>
+    fun getAllAsync(): LiveData<List<Note>>
+
+    @Query("SELECT * FROM note WHERE pumpingId=:pumpingId")
+    fun getByPumpingAsync(pumpingId: Long): LiveData<List<Note>>
+
 }

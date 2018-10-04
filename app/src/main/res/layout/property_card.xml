@@ -6,15 +6,7 @@
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         style="@style/CardViewStyle">
 
-        <TextView
-            android:id="@+id/propertyName"
-            style="@style/CardText.Left" />
-
-        <TextView
-            android:id="@+id/propertyValue"
-            style="@style/CardText.Right"
-            android:text="0.0"
-            android:textStyle="bold" />
+        <include layout="@layout/property"/>
 
     </android.support.v7.widget.CardView>
 </FrameLayout>

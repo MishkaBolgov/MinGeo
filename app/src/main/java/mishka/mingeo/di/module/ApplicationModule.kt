@@ -28,7 +28,10 @@ class ApplicationModule(val application: Application) {
 
     @Provides
     fun provideAppDatabase(@ApplicationContext context: Context, @DatabaseName databaseName: String): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, databaseName).allowMainThreadQueries().build()
+        return Room.databaseBuilder(context, AppDatabase::class.java, databaseName)
+                .addMigrations(MIGRATION_1_2)
+                .allowMainThreadQueries()
+                .build()
     }
 
 
@@ -56,11 +59,6 @@ class ApplicationModule(val application: Application) {
     @DatabaseName
     internal fun provideDatabaseName(): String {
         return "database"
-    }
-
-    @Provides
-    internal fun provideDatabaseHelper(databaseHelper: SimpleDatabaseHelper): DatabaseHelper {
-        return databaseHelper
     }
 
 }

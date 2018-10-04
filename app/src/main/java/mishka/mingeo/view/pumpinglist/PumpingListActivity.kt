@@ -56,8 +56,6 @@ class PumpingListActivity : BaseActivityKt() {
             val createdPumpingId = viewModel.onCreatePumpingClick()
         }
 
-        if (PermissionUtils.isStoragePermissionDenied(this))
-            PermissionUtils.requestStoragePermission(this)
 
     }
 
@@ -78,6 +76,9 @@ class PumpingListActivity : BaseActivityKt() {
     }
 
     fun onPumpingSelected(pumping: Pumping) {
+
+        if (PermissionUtils.isStoragePermissionDenied(this))
+            PermissionUtils.requestStoragePermission(this)
 
         if (PermissionUtils.isStoragePermissionGranted(this)) {
             val intent = Intent(this, PumpingActivity::class.java)

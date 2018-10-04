@@ -4,6 +4,7 @@ import dagger.Component
 import mishka.mingeo.data.model.Pumping
 import mishka.mingeo.di.ActivityScope
 import mishka.mingeo.di.module.PumpingModule
+import mishka.mingeo.view.plot.PlotViewFragment
 import mishka.mingeo.view.pumping.PumpingActivity
 import mishka.mingeo.view.pumping.note.NotesFragment
 
@@ -12,5 +13,6 @@ import mishka.mingeo.view.pumping.note.NotesFragment
 interface PumpingActivityComponent {
     fun inject(activity: PumpingActivity)
     fun inject(fragment: NotesFragment)
+    fun inject(plotViewFragment: PlotViewFragment)
 //    fun getPumping(): Pumping
 }

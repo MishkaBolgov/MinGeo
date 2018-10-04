@@ -1,56 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context="mishka.mingeo.view.pumping.PumpingActivity">
 
-
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="mishka.mingeo.view.pumping.PumpingActivity">
+        android:layout_height="match_parent">
 
-        <include layout="@layout/toolbar"/>
-
-        <fragment
-            android:id="@+id/chartContainer"
-            android:name="mishka.mingeo.view.plot.PlotViewFragment"
-            style="@style/CardViewStyle"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@+id/toolbar"/>
+            android:layout_height="wrap_content">
 
-        <include
-            android:id="@+id/pumpPower"
-            layout="@layout/proprty_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/chartContainer" />
-
-        <TextView
-            android:id="@+id/boreholesLabel"
-            style="@style/LabelStyle"
-            android:text="Скважины"
-            android:layout_below="@id/pumpPower"/>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvBoreholes"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/boreholesLabel"/>
-
-        <include layout="@layout/floating_button" />
+            <include layout="@layout/toolbar" />
 
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/pumpingStartedLabel"
+                style="@style/LabelStyle"
+                android:layout_width="match_parent"
+                android:text="Насос запущен"
+                android:background="@color/blue"
+                android:layout_below="@id/toolbar"
+                android:visibility="gone"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"/>
 
-    <fragment
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:name="mishka.mingeo.view.pumping.note.NotesFragment"
-        android:id="@+id/notesFragment"
-        app:behavior_peekHeight="100dp"
-        app:layout_behavior="@string/bottom_sheet_behavior"/>
+            <fragment
+                android:id="@+id/chartContainer"
+                android:name="mishka.mingeo.view.plot.PumpingPlotViewFragment"
+                style="@style/CardViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/pumpingStartedLabel" />
 
-</android.support.design.widget.CoordinatorLayout>
+            <include
+                android:id="@+id/pumpPower"
+                layout="@layout/property_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/chartContainer" />
+
+            <TextView
+                android:id="@+id/boreholesLabel"
+                style="@style/LabelStyle.Large"
+                android:layout_below="@id/pumpPower"
+                android:layout_marginTop="20dp"
+                android:text="Скважины" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvBoreholes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/boreholesLabel" />
+
+
+            <Button
+                android:id="@+id/btnAddBorehole"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_below="@id/rvBoreholes"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:background="@drawable/plus" />
+
+
+
+            <TextView
+                android:id="@+id/notesLabel"
+                style="@style/LabelStyle.Large"
+                android:layout_below="@id/btnAddBorehole"
+                android:text="Заметки"
+                android:layout_marginTop="20dp"/>
+
+            <fragment
+                android:id="@+id/notesFragment"
+                android:name="mishka.mingeo.view.pumping.note.NotesFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/notesLabel" />
+
+            <Button
+                android:id="@+id/btnStartPumping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/notesFragment"
+                android:text="Насос запущен"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/capsule"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

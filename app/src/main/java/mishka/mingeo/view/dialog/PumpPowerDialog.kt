@@ -1,5 +1,5 @@
 package mishka.mingeo.view.dialog
 
-class SetPumpPowerDialog: SetValueDialog(){
+class PumpPowerDialog: SetValueDialog(){
     override val title = "Мощность насоса"
 }

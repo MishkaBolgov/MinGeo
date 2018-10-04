@@ -16,12 +16,15 @@ import javax.inject.Inject
 class Exporter @Inject constructor(val dataManager: DataManager, val activity: AppCompatActivity) {
     private val fileName = "test_file.csv"
     private val file = File(Environment.getExternalStorageDirectory(), fileName)
+    private val headers = "Dynamic level,Debit,Dynamic level from earth level,Decrease,Distance from central borehole,Time,lg(t),lg(t/r)"
+//    private val headers = "Динамический уровень,Дебит,Динамический уровень от поверхности земли,Понижение,Расстояние от центральной скважины,Время в сутках,lg(t),lg(t/r)"
+
     init {
-        if(!file.exists())
+        if (!file.exists())
             file.createNewFile()
     }
 
-    fun export(pumping: Pumping){
+    fun export(pumping: Pumping) {
         writeDataToFile(pumping)
         sendFile()
     }
@@ -29,21 +32,45 @@ class Exporter @Inject constructor(val dataManager: DataManager, val activity: A
 
     private fun writeDataToFile(pumping: Pumping) {
         val writer = FileWriter(file)
-        for (borehole in dataManager.getBoreholesForPumping(pumping)){
-            writeBorehole(borehole, writer)
+
+        for (borehole in dataManager.getBoreholesForPumping(pumping)) {
+            writeBorehole(pumping, borehole, writer)
         }
 
         writer.flush()
         writer.close()
     }
 
+    private fun writeBorehole(pumping: Pumping, borehole: Borehole, writer: FileWriter) {
+        if (pumping.centralBoreholeId == borehole.id)
+            writer.append("Borehole ${borehole.id} [Central]")
+        else
+            writer.append("Borehole ${borehole.id}")
+        writer.append("\n")
 
-    private fun writeBorehole(borehole: Borehole, writer: FileWriter) {
-        var row: String
-        for (depth in dataManager.getBoreholeDepths(borehole)){
-            row = "${depth.depth},${depth.days}\n"
+
+        writer.append(headers)
+        writer.append("\n")
+        var row = ""
+        for (depth in dataManager.getBoreholeDepths(borehole)) {
+            val dynamicLevel = depth.depth + borehole.headHeight
+            val debit = pumping.pumpPower
+            val dynamicLevelFromEarthLevel = depth.depth
+            val decrease = depth.relativeDepth(borehole.initialDepth)
+            val distanceFromCentral = borehole.distanceFromCentral
+            val time = depth.daysFrom(pumping.startPumpingTime!!)
+            val logT = depth.logDaysFrom(pumping.startPumpingTime!!)
+            val logTR = depth.logDaysFromDividedByDistance(pumping.startPumpingTime!!, borehole.distanceFromCentral)
+
+            row = "$dynamicLevel,$debit,$dynamicLevelFromEarthLevel,$decrease,$distanceFromCentral,$time,$logT,$logTR"
+
             writer.append(row)
+            writer.append("\n")
+
         }
+
+        writer.append("\n")
+
     }
 
 

@@ -63,11 +63,6 @@
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
-            <TextView
-                android:id="@+id/label"
-                style="@style/LabelStyle.Large"
-                android:layout_below="@id/chart_fragment"
-                android:text="Скважины" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvBoreholesSummary"

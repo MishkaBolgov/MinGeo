@@ -18,7 +18,7 @@ class NoteAdapter @Inject constructor(val recordPlayer: RecordPlayer) : Recycler
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.note, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
         return NoteViewHolder(view, recordPlayer)
     }
 
@@ -33,7 +33,7 @@ class NoteAdapter @Inject constructor(val recordPlayer: RecordPlayer) : Recycler
         var note: Note? = null
 
         init {
-            itemView.btnPlay.setOnClickListener {
+            itemView.setOnClickListener {
                 note?.let {
                     recordPlayer.play(it.path)
                 }
@@ -41,7 +41,7 @@ class NoteAdapter @Inject constructor(val recordPlayer: RecordPlayer) : Recycler
         }
 
         fun setName(position: Int) {
-            itemView.tvRecordName.text = "Заметка ${position + 1}"
+            itemView.leftContent.text = "Заметка ${position + 1}"
         }
     }
 }

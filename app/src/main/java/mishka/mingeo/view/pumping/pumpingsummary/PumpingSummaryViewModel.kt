@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class PumpingSummaryViewModel @Inject constructor(val dataManager: DataManager, val pumping: Pumping) {
 
-    val boreholes: LiveData<List<Borehole>> = dataManager.getLiveBoreholesForPumping(pumping)
+    val boreholes: LiveData<List<Borehole>> = dataManager.getBoreholesForPumpingAsync(pumping)
 
 
     fun updatePumpPower(power: Float) {
@@ -17,6 +17,6 @@ class PumpingSummaryViewModel @Inject constructor(val dataManager: DataManager, 
     }
 
     fun getPumping(): LiveData<Pumping> = dataManager.getPumpingById(pumping.id)
-    fun getDepths(borehole: Borehole):LiveData<List<BoreholeDepth>>  = dataManager.getBoreholeDepthsForBorehole(borehole)
+    fun getDepths(borehole: Borehole):LiveData<List<BoreholeDepth>>  = dataManager.getBoreholeDepthsForBoreholeAsync(borehole)
 
 }

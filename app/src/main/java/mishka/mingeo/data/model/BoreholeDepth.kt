@@ -1,29 +1,27 @@
 package mishka.mingeo.data.model
 
 
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.Ignore
-import android.arch.persistence.room.PrimaryKey
-import android.arch.persistence.room.TypeConverters
+import android.arch.persistence.room.*
 import org.joda.time.DateTime
 
 import org.joda.time.Instant
 import org.joda.time.LocalDateTime
 import org.joda.time.format.DateTimeFormat
+import kotlin.math.log10
 
 @Entity
 @TypeConverters(DateConverter::class)
-class BoreholeDepth : DatabaseEntity {
+class BoreholeDepth {
 
     @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+    var id: Long = 0
 
     var depth: Float = 0F
 
-    var boreholeId: Int = 0
+    var boreholeId: Long = 0
 
-    var date: Instant? = null
-
+    @Embedded
+    var timestamps: Timestamps = Timestamps()
 
     @Ignore
     val HOURS_IN_DAY = 24
@@ -32,15 +30,41 @@ class BoreholeDepth : DatabaseEntity {
     @Ignore
     val SECONDS_IN_MINUTE = 60
     @Ignore
-    val SECONDS_IN_DAY = HOURS_IN_DAY * MINUTES_IN_HOUR * SECONDS_IN_MINUTE.toFloat()
+    val MILLIS_IN_SECOND = 1000
+    @Ignore
+    val SECONDS_IN_DAY = HOURS_IN_DAY *
+            MINUTES_IN_HOUR *
+            SECONDS_IN_MINUTE.toFloat()
+
+    @Ignore
+    val MILLIS_IN_DAY = HOURS_IN_DAY *
+            MINUTES_IN_HOUR *
+            SECONDS_IN_MINUTE *
+            MILLIS_IN_SECOND.toFloat()
 
     val days: Float
         get() {
-            val dateTime = LocalDateTime(date)
+            val dateTime = LocalDateTime(timestamps.createdAt)
             val secondsOfDay: Float = dateTime.hourOfDay.hoursToSeconds() + dateTime.minuteOfHour.minutesToSeconds() + dateTime.secondOfMinute
 
             return dateTime.dayOfYear + (secondsOfDay / SECONDS_IN_DAY)
         }
+
+    fun daysFrom(from: Instant): Float {
+        val period = timestamps.createdAt!!.millis - from.millis
+        val result = period / MILLIS_IN_DAY
+        return result
+    }
+
+//    log(t)
+    fun logDaysFrom(from: Instant): Float {
+        return log10(daysFrom(from))
+    }
+
+//    log(t/r)
+    fun logDaysFromDividedByDistance(from: Instant, distance: Float): Float {
+        return log10(daysFrom(from) / distance)
+    }
 
     private fun Int.hoursToSeconds(): Float {
         return this * MINUTES_IN_HOUR * SECONDS_IN_MINUTE.toFloat()
@@ -51,19 +75,19 @@ class BoreholeDepth : DatabaseEntity {
     }
 
     fun getFormatDate(): String {
-        val dateTime = DateTime(date)
+        val dateTime = DateTime(timestamps.createdAt)
         val formatter = DateTimeFormat.forPattern("HH:mm | dd.MM.yy")
 //        return "${dateTime.hourOfDay}:${dateTime.minuteOfHour} | ${dateTime.dayOfMonth().asText}.${dateTime.monthOfYear().asText}"
-        return formatter.print(date)
+        return formatter.print(timestamps.createdAt)
     }
 
-    constructor() {}
+    constructor()
 
     constructor(borehole: Borehole, depth: Float) {
         this.depth = depth
-        this.boreholeId = borehole.getId()
-        date = Instant.now()
+        this.boreholeId = borehole.id
+        timestamps = Timestamps()
     }
 
-    fun relativeDepth(originDepth: Float): Float = depth - originDepth
+    fun relativeDepth(initialDepth: Float): Float = initialDepth - depth
 }

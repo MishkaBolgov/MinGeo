@@ -10,9 +10,12 @@ import mishka.mingeo.data.datamanager.DataManager
 import mishka.mingeo.data.model.Borehole
 import mishka.mingeo.data.model.BoreholeDepth
 import mishka.mingeo.data.model.Pumping
+import org.joda.time.Instant
 
 class PumpingViewModel(val dataManager: DataManager, private val pumping: Pumping) : ViewModel() {
-    val boreholes: LiveData<List<Borehole>> = dataManager.getLiveBoreholesForPumping(pumping)
+    val startPumpingTime: Instant? = dataManager.getStartPumpingTime(pumping)
+
+    val boreholes: LiveData<List<Borehole>> = dataManager.getBoreholesForPumpingAsync(pumping)
 
     fun onCreateBoreholeClick() = dataManager.createBorehole(pumping)
 
@@ -21,7 +24,12 @@ class PumpingViewModel(val dataManager: DataManager, private val pumping: Pumpin
     fun getPumping() = dataManager.getPumpingById(pumping.id)
 
     fun getSummaryDepth(): List<List<BoreholeDepth>> = dataManager.getDepthsForPumping(pumping)
+    fun setCentralBorehole(borehole: Borehole) = dataManager.setCentralBorehole(pumping, borehole)
 
+
+    fun saveStartPumpingTime() = dataManager.setStartPumpingTime(pumping, Instant.now())
+
+    fun isPumpingStarted() = (startPumpingTime != null)
 
     class Factory @Inject constructor(private val dataManager: DataManager, private val pumping: Pumping) : ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

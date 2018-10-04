@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
+import kotlinx.android.synthetic.main.activity_pumping.*
 import kotlinx.android.synthetic.main.fragment_notes.*
 import kotlinx.android.synthetic.main.fragment_notes.view.*
 
@@ -38,7 +39,6 @@ class NotesFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_notes, container, false)
 
-
         view.btnRecord.setOnTouchListener { view, event ->
             if (PermissionUtils.isAudioPermissionGranted(activity))
                 when (event.action) {
@@ -64,6 +64,7 @@ class NotesFragment : Fragment() {
         rvNotes.adapter = adapter
 
         viewModel.notes.observe(this, Observer {
+
             adapter.notes = it ?: ArrayList()
         })
     }

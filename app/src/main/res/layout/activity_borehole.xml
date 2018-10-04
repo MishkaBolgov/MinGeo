@@ -6,27 +6,93 @@
     android:layout_height="match_parent"
     tools:context=".view.pumping.borehole.BoreholeActivity">
 
-
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/chartContainer"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:name="mishka.mingeo.view.plot.PlotViewFragment"
-        style="@style/CardViewStyle"/>
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
 
-    <TextView
-        android:id="@+id/depthsLabel"
-        style="@style/LabelStyle"
-        android:text="Замеры"
-        android:layout_below="@+id/chartContainer"/>
+            <include layout="@layout/toolbar" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvDepths"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/depthsLabel"/>
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/chartContainer"
+                android:name="mishka.mingeo.view.plot.BoreholePlotViewFragment"
+                style="@style/CardViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/toolbar" />
 
-    <include layout="@layout/floating_button" />
 
+            <android.support.v7.widget.CardView
+                android:id="@+id/properties"
+                style="@style/CardViewStyle"
+                android:layout_below="@+id/chartContainer">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:id="@+id/distanceFromCentral"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <include layout="@layout/property" />
+                    </FrameLayout>
+
+                    <android.support.v4.widget.Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <FrameLayout
+                        android:id="@+id/initialDepth"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <include layout="@layout/property" />
+                    </FrameLayout>
+
+                    <android.support.v4.widget.Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <FrameLayout
+                        android:id="@+id/headHeight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <include layout="@layout/property" />
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/depthsLabel"
+                style="@style/LabelStyle.Large"
+                android:layout_below="@id/properties"
+                android:text="Замеры" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvDepths"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/depthsLabel" />
+
+            <Button
+                android:id="@+id/btnAddDepth"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_below="@id/rvDepths"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:background="@drawable/plus"
+                android:visibility="gone"/>
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

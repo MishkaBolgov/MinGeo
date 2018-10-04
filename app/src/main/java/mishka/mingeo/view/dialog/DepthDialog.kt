@@ -1,5 +1,5 @@
 package mishka.mingeo.view.dialog
 
-class CreateDepthDialog: SetValueDialog() {
+class DepthDialog: SetValueDialog() {
     override val title = "Новый замер"
 }

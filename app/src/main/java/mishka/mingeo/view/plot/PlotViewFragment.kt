@@ -14,9 +14,16 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import kotlinx.android.synthetic.main.fragment_plot_view.view.*
 
 import mishka.mingeo.R
+import mishka.mingeo.data.datamanager.DataManager
 import mishka.mingeo.data.model.BoreholeDepth
+import javax.inject.Inject
+import kotlin.math.ln
+import kotlin.math.log
+import kotlin.math.log10
 
-class PlotViewFragment : Fragment(), PlotView {
+abstract class PlotViewFragment : Fragment(), PlotView {
+    @Inject
+    lateinit var dataManager: DataManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -25,18 +32,9 @@ class PlotViewFragment : Fragment(), PlotView {
 
     }
 
-    override fun plot(data: List<List<BoreholeDepth>>) {
+    override fun update() {
 
-        if (data.isEmpty())
-            return
-
-        val plotData: MutableList<ILineDataSet> = ArrayList()
-
-        for ((index, boreholeData) in data.withIndex())
-            if (boreholeData.isNotEmpty()) {
-                val lineDataSet = getBoreholeDataSet(boreholeData, index)
-                plotData.add(lineDataSet)
-            }
+        val plotData: MutableList<ILineDataSet> = getPlotData() ?: return
 
         val lineData = LineData(plotData)
 
@@ -47,20 +45,14 @@ class PlotViewFragment : Fragment(), PlotView {
         view?.chart?.invalidate()
     }
 
-    private fun getBoreholeDataSet(boreholeData: List<BoreholeDepth>, index: Int): ILineDataSet {
-        val entries = ArrayList<Entry>()
+    abstract fun getPlotData(): MutableList<ILineDataSet>?
 
-        for (depth in boreholeData) {
-            entries.add(Entry(depth.days, depth.depth))
-        }
-        val lineDataSet = LineDataSet(entries, "")
-        lineDataSet.lineWidth = 4f
-        lineDataSet.color = getLineColor(index)
 
-        return lineDataSet
+    protected fun Float.relativeDepth(origin: Float): Float {
+        return origin - this
     }
 
-    private fun getLineColor(index: Int): Int {
+    protected fun getLineColor(index: Int): Int {
         return when (index) {
             0 -> context.resources.getColor(R.color.plotLineColor1)
             1 -> context.resources.getColor(R.color.plotLineColor2)

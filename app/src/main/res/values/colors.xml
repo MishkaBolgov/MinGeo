@@ -17,5 +17,9 @@
     <color name="plotLineColor4">#237fbc</color>
     <color name="plotLineColor5">#73b7df</color>
     <color name="plotLineColor6">#161938</color>
+    <color name="gray">#28000000</color>
+    <color name="green">#64a0c8a0</color>
+    <color name="blue">#96a0bac8</color>
+
 
 </resources>

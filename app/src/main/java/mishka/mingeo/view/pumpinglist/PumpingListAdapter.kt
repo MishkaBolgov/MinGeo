@@ -4,8 +4,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.TextView
-import kotlinx.android.synthetic.main.list_item.view.*
+import kotlinx.android.synthetic.main.list_item_with_options.view.*
 
 import javax.inject.Inject
 
@@ -24,7 +25,7 @@ class PumpingListAdapter @Inject constructor(val exporter: Exporter) : RecyclerV
     lateinit var pumpingListActivity: PumpingListActivity
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PumpingItemViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_with_options, parent, false)
         return PumpingItemViewHolder(view, pumpingListActivity, exporter)
     }
 
@@ -47,11 +48,18 @@ class PumpingListAdapter @Inject constructor(val exporter: Exporter) : RecyclerV
 
         init {
             itemView.setOnClickListener { pumpingListActivity.onPumpingSelected(pumping!!) }
-            itemView.setOnLongClickListener {
-                pumping?.let {
-                    exporter.export(it)
+            itemView.btnOptions.setOnClickListener {
+                val menu = PopupMenu(itemView.context, itemView.btnOptions)
+                menu.inflate(R.menu.pumping_list_item_menu)
+                menu.setOnMenuItemClickListener {
+                    if (pumping != null)
+                        when (it.itemId) {
+                            R.id.export ->
+                                exporter.export(pumping!!)
+                        }
+                    true
                 }
-                true
+                menu.show()
             }
         }
 
